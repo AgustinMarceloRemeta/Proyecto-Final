@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+
+[Serializable]
+public class StudentData 
+{
+    public string name;
+    public string lastName;
+    public List <bool> attendanceBools;
+    public float attendancePercentage;
+    public float absence;
+    public float attendances;
+    public float totalDays;
+    public List <float> notes;
+    public float noteAverage;
+    public float notePercentage;
+    public string course;
+}
+[Serializable]
+public class JsonData
+{
+    public List<StudentData> students;
+}
