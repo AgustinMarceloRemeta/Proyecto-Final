@@ -1,16 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CourseController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<StudentData> students;
+    public string nameCourse;
+    public TextMeshProUGUI nameText;
 
-    // Update is called once per frame
-    void Update()
+    public void OpenCourse()
     {
-        
+        StudentsListManager.instance.SetList(students);
+        DataManager.instance.courses.SetActive(false);
+        DataManager.instance.studentsPanel.SetActive(true);
     }
 }

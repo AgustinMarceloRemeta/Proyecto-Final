@@ -5,6 +5,16 @@ public class DataManager : MonoBehaviour
 {
     public float noteMax;
     public static DataManager instance;
+    [Header("Courses")]
+    [SerializeField] GameObject prefabCourse;
+    Stack<GameObject> coursesList = new Stack<GameObject>();
+    List<string> coursesNames = new List<string>();
+    [SerializeField] Vector3 originalPosition;
+    [SerializeField] float distanceObjects;
+    [SerializeField] GameObject parent;
+    [SerializeField] GameObject panel;
+    public GameObject studentsPanel;
+    public GameObject courses;
 
     private void Awake()
     {
@@ -42,7 +52,11 @@ public class DataManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            SetAverages(LoadData.instance.data.students[0]);
+            foreach (var item in coursesList)
+            {
+                print(item.transform.localPosition);
+                print(item.transform.parent.name);
+            }
         }
     }
 
@@ -61,42 +75,40 @@ public class DataManager : MonoBehaviour
         studentData.Sort((student1, student2) => student1.lastName.CompareTo(student2.lastName));
     }
 
-    public string SetLastNames(List<StudentData> students, string originalText)
+    public void SetCourses()
     {
-        originalText += "\n";
-        foreach (StudentData student in students)
+        foreach (StudentData item in LoadData.instance.data.students)
         {
-            originalText += "  " + student.lastName + "\n \n \n";
+            if (!coursesNames.Contains(item.course)) NewCourse(item.course);
+            AddNewStudent(item);
         }
-        return originalText;
     }
 
-    public string SetOtherText(List<StudentData> students, string nameProperty)
+    public void NewCourse(string course)
     {
-        string newText = string.Empty;
-        foreach (StudentData student in students)
+        GameObject newCourse = GameObject.Instantiate(prefabCourse);
+        newCourse.transform.SetParent(parent.transform);
+        if (coursesList.Count > 0) newCourse.transform.localPosition = coursesList.Peek().transform.localPosition - new Vector3(0, distanceObjects, 0);
+        else newCourse.transform.localPosition = originalPosition;
+        print(newCourse.transform.localPosition);
+        coursesList.Push(newCourse);
+        coursesNames.Add(course);
+        CourseController courseController = newCourse.GetComponent<CourseController>();
+        courseController.nameCourse = course;
+        courseController.nameText.text = course;
+        print(newCourse.transform.localPosition);
+    }
+
+    public void AddNewStudent(StudentData student)
+    {
+        foreach (var item in coursesList)
         {
-            var studentType = student.GetType();
-            var property = studentType.GetField(nameProperty);
-            if (property != null)
+            CourseController courseController = item.GetComponent<CourseController>();
+            if (courseController.nameCourse == student.course)
             {
-                var value= property.GetValue(student);
-                int wordCount = value.ToString().Split(' ').Length;
-                if (nameProperty == "attendancePercentage") newText += value + "% \n \n \n";
-                else 
-                {
-                    if (wordCount > 1)
-                    {
-                        newText += value + "\n \n ";
-                    }
-                    else
-                    {
-                        newText += value + "\n \n \n";
-                    }
-                }
+                courseController.students.Add(student);
+                break;
             }
-            else return string.Empty;
         }
-        return newText;
     }
 }
