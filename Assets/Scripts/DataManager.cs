@@ -1,11 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
     public float noteMax;
-    public float SetAttendanceAverage(List <bool> attendance, string type)
+    public static DataManager instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+    float SetAttendanceAverage(List <bool> attendance, string type)
     {
         int numbersOfAttendance = 0;
         foreach (bool attendanceItem in attendance)
@@ -23,7 +28,7 @@ public class DataManager : MonoBehaviour
         else return 0;
     }
 
-    public float SetNoteAverage(List <float> note, bool percentage)
+    float SetNoteAverage(List <float> note, bool percentage)
     {
         float numberOfNote = 0;
         foreach (float item in note)
@@ -41,7 +46,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    private void SetAverages(StudentData studentData)
+    public void SetAverages(StudentData studentData)
     {
         studentData.attendancePercentage = SetAttendanceAverage(studentData.attendanceBools, "percentage");
         studentData.attendances = SetAttendanceAverage(studentData.attendanceBools, "attendances");
@@ -49,5 +54,49 @@ public class DataManager : MonoBehaviour
         studentData.totalDays = SetAttendanceAverage(studentData.attendanceBools, "totalDays");
         studentData.noteAverage = SetNoteAverage(studentData.notes, false);
         studentData.notePercentage = SetNoteAverage(studentData.notes, true);
+    }
+
+    public void OrderStudents(List<StudentData> studentData)
+    {
+        studentData.Sort((student1, student2) => student1.lastName.CompareTo(student2.lastName));
+    }
+
+    public string SetLastNames(List<StudentData> students, string originalText)
+    {
+        originalText += "\n";
+        foreach (StudentData student in students)
+        {
+            originalText += "  " + student.lastName + "\n \n \n";
+        }
+        return originalText;
+    }
+
+    public string SetOtherText(List<StudentData> students, string nameProperty)
+    {
+        string newText = string.Empty;
+        foreach (StudentData student in students)
+        {
+            var studentType = student.GetType();
+            var property = studentType.GetField(nameProperty);
+            if (property != null)
+            {
+                var value= property.GetValue(student);
+                int wordCount = value.ToString().Split(' ').Length;
+                if (nameProperty == "attendancePercentage") newText += value + "% \n \n \n";
+                else 
+                {
+                    if (wordCount > 1)
+                    {
+                        newText += value + "\n \n ";
+                    }
+                    else
+                    {
+                        newText += value + "\n \n \n";
+                    }
+                }
+            }
+            else return string.Empty;
+        }
+        return newText;
     }
 }
