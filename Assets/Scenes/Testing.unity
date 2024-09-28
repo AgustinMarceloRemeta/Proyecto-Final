@@ -1194,6 +1194,7 @@ GameObject:
   - component: {fileID: 339846267}
   - component: {fileID: 339846270}
   - component: {fileID: 339846271}
+  - component: {fileID: 339846272}
   m_Layer: 0
   m_Name: DataController
   m_TagString: Untagged
@@ -1254,13 +1255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa499536d9650846b32d75652ffd2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabCourse: {fileID: 8277703138956873286, guid: fbf145ba21f27e44e992ca9da95c91ed, type: 3}
-  originalPosition: {x: 200, y: -110, z: 0}
-  distanceObjects: 110
-  parent: {fileID: 1131435805}
-  panel: {fileID: 1067757445}
-  studentsPanel: {fileID: 1945594589}
-  courses: {fileID: 90016428}
 --- !u!114 &339846271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1277,6 +1271,30 @@ MonoBehaviour:
   nameText: {fileID: 1298098469}
   attendancesText: {fileID: 1833797449}
   noteText: {fileID: 95810026}
+--- !u!114 &339846272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339846266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc4c1aab2a702341a6bd65d2ea24a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabCourse: {fileID: 8277703138956873286, guid: fbf145ba21f27e44e992ca9da95c91ed, type: 3}
+  coursesNames: []
+  originalPosition: {x: 300, y: -110, z: 0}
+  distanceObjects: 110
+  parent: {fileID: 1131435805}
+  panel: {fileID: 1067757445}
+  studentsPanel: {fileID: 1945594589}
+  courses: {fileID: 90016428}
+  nameText: {fileID: 1766606171}
+  noteText: {fileID: 589860621}
+  alertText: {fileID: 0}
+  settingsPanel: {fileID: 1263637686}
 --- !u!1 &385994106
 GameObject:
   m_ObjectHideFlags: 0
@@ -2696,10 +2714,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 90016428}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 339846272}
+        m_TargetAssemblyTypeName: CoursesManager, Assembly-CSharp
+        m_MethodName: SetNewCourse
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2707,18 +2725,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1263637686}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &741910783
 MonoBehaviour:
