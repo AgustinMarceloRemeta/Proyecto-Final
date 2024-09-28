@@ -13,11 +13,11 @@ public class LoadData : MonoBehaviour
     {
         instance = this;
         data = ReturnData();
+
     }
 
     private void Start()
     {
-        foreach (StudentData item in data.students) DataManager.instance.SetAverages(item);       
         DataManager.instance.OrderStudents(data.students);
         DataManager.instance.SetCourses();
     }

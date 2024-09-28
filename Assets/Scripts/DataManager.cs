@@ -3,18 +3,7 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    public float noteMax;
     public static DataManager instance;
-    [Header("Courses")]
-    [SerializeField] GameObject prefabCourse;
-    Stack<GameObject> coursesList = new Stack<GameObject>();
-    List<string> coursesNames = new List<string>();
-    [SerializeField] Vector3 originalPosition;
-    [SerializeField] float distanceObjects;
-    [SerializeField] GameObject parent;
-    [SerializeField] GameObject panel;
-    public GameObject studentsPanel;
-    public GameObject courses;
 
     private void Awake()
     {
@@ -38,7 +27,7 @@ public class DataManager : MonoBehaviour
         else return 0;
     }
 
-    float SetNoteAverage(List <float> note, bool percentage)
+    float SetNoteAverage(List <float> note, bool percentage, float noteMax)
     {
         float numberOfNote = 0;
         foreach (float item in note)
@@ -48,26 +37,15 @@ public class DataManager : MonoBehaviour
         if(percentage) return note.Count > 0 ? (numberOfNote*100) / (note.Count*noteMax)  : 0 ;
         else return note.Count > 0 ? numberOfNote / note.Count : 0; ;
     }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            foreach (var item in coursesList)
-            {
-                print(item.transform.localPosition);
-                print(item.transform.parent.name);
-            }
-        }
-    }
 
-    public void SetAverages(StudentData studentData)
+    public void SetAverages(StudentData studentData,float noteMax)
     {
         studentData.attendancePercentage = SetAttendanceAverage(studentData.attendanceBools, "percentage");
         studentData.attendances = SetAttendanceAverage(studentData.attendanceBools, "attendances");
         studentData.absence = SetAttendanceAverage(studentData.attendanceBools, "absence");
         studentData.totalDays = SetAttendanceAverage(studentData.attendanceBools, "totalDays");
-        studentData.noteAverage = SetNoteAverage(studentData.notes, false);
-        studentData.notePercentage = SetNoteAverage(studentData.notes, true);
+        studentData.noteAverage = SetNoteAverage(studentData.notes, false, noteMax);
+        studentData.notePercentage = SetNoteAverage(studentData.notes, true, noteMax);
     }
 
     public void OrderStudents(List<StudentData> studentData)
@@ -79,36 +57,10 @@ public class DataManager : MonoBehaviour
     {
         foreach (StudentData item in LoadData.instance.data.students)
         {
-            if (!coursesNames.Contains(item.course)) NewCourse(item.course);
-            AddNewStudent(item);
+            //esto es temporal hasta que haga un json de cursos o algo por el estilo;
+            if (!CoursesManager.instance.coursesNames.Contains(item.course)) CoursesManager.instance.NewCourse(item.course, 10);
+            CoursesManager.instance.AddNewStudent(item);
         }
     }
 
-    public void NewCourse(string course)
-    {
-        GameObject newCourse = GameObject.Instantiate(prefabCourse);
-        newCourse.transform.SetParent(parent.transform);
-        if (coursesList.Count > 0) newCourse.transform.localPosition = coursesList.Peek().transform.localPosition - new Vector3(0, distanceObjects, 0);
-        else newCourse.transform.localPosition = originalPosition;
-        print(newCourse.transform.localPosition);
-        coursesList.Push(newCourse);
-        coursesNames.Add(course);
-        CourseController courseController = newCourse.GetComponent<CourseController>();
-        courseController.nameCourse = course;
-        courseController.nameText.text = course;
-        print(newCourse.transform.localPosition);
-    }
-
-    public void AddNewStudent(StudentData student)
-    {
-        foreach (var item in coursesList)
-        {
-            CourseController courseController = item.GetComponent<CourseController>();
-            if (courseController.nameCourse == student.course)
-            {
-                courseController.students.Add(student);
-                break;
-            }
-        }
-    }
 }
