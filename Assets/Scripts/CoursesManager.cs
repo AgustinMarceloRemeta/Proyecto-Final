@@ -28,14 +28,25 @@ public class CoursesManager : MonoBehaviour
     public void SetNewCourse()
     {
         float newNoteMax = 0;
-        print("hola" == noteText.text.Normalize());
+        bool courseNameCorrect = !coursesNames.Contains(nameText.text) && nameText.text != string.Empty;
+       if(courseNameCorrect) 
         try
         {
             newNoteMax = int.Parse(noteText.text.Trim(), CultureInfo.InvariantCulture);
+                if(newNoteMax <= 0)
+                {
+                    print("numero invalido");
+                    return;
+                }
         }
         catch (FormatException)
         {
             print("Ingrese un numero");
+            return;
+        }
+        else
+        {
+            print("Ingrese un nombre correcto");
             return;
         }
                     NewCourse(nameText.text, newNoteMax);
