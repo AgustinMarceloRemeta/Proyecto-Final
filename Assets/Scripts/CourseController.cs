@@ -19,4 +19,5 @@ public class CourseController : MonoBehaviour
         CoursesManager.instance.courses.SetActive(false);
         CoursesManager.instance.studentsPanel.SetActive(true);
     }
+   
 }

@@ -27,12 +27,12 @@ public class DataManager : MonoBehaviour
         else return 0;
     }
 
-    float SetNoteAverage(List <float> note, bool percentage, float noteMax)
+    float SetNoteAverage(List <Note> note, bool percentage, float noteMax)
     {
         float numberOfNote = 0;
-        foreach (float item in note)
+        foreach (Note item in note)
         {
-            numberOfNote += item;
+            numberOfNote += item.value;
         }
         if(percentage) return note.Count > 0 ? (numberOfNote*100) / (note.Count*noteMax)  : 0 ;
         else return note.Count > 0 ? numberOfNote / note.Count : 0; ;

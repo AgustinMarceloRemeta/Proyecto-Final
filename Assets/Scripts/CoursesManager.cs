@@ -49,9 +49,9 @@ public class CoursesManager : MonoBehaviour
             print("Ingrese un nombre correcto");
             return;
         }
-                    NewCourse(nameText.text, newNoteMax);
-            courses.SetActive(true);
-            settingsPanel.SetActive(false);
+        NewCourse(nameText.text, newNoteMax);
+        courses.SetActive(true);
+        settingsPanel.SetActive(false);
 
     }
 

@@ -11,7 +11,7 @@ public class StudentData
     public float absence;
     public float attendances;
     public float totalDays;
-    public List <float> notes;
+    public List <Note> notes;
     public float noteAverage;
     public float notePercentage;
     public string course;
@@ -20,4 +20,11 @@ public class StudentData
 public class JsonData
 {
     public List<StudentData> students;
+}
+
+[Serializable]
+public class Note
+{
+    public string referencia;
+    public int value;
 }
