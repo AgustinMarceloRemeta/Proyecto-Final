@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Globalization;
+using System.Linq;
 
 public class CoursesManager : MonoBehaviour
 {
     public static CoursesManager instance;
     [SerializeField] GameObject prefabCourse;
-    Stack<GameObject> coursesList = new Stack<GameObject>();
+    public Stack<GameObject> coursesList = new Stack<GameObject>();
     public List<string> coursesNames = new List<string>();
     [SerializeField] Vector3 originalPosition;
     [SerializeField] float distanceObjects;
@@ -20,10 +21,13 @@ public class CoursesManager : MonoBehaviour
     [SerializeField] TMP_InputField noteText;
     [SerializeField] TextMeshProUGUI alertText;
     [SerializeField] GameObject settingsPanel;
+    public string actualCourse;
     private void Awake()
     {
         instance = this;
     }
+
+    public void SetActualCouse(string course)=> actualCourse = course;
 
     public void SetNewCourse()
     {
@@ -69,16 +73,5 @@ public class CoursesManager : MonoBehaviour
         courseController.noteMax = noteMax;
     }
 
-    public void AddNewStudent(StudentData student)
-    {
-        foreach (var item in coursesList)
-        {
-            CourseController courseController = item.GetComponent<CourseController>();
-            if (courseController.nameCourse == student.course)
-            {
-                courseController.students.Add(student);
-                break;
-            }
-        }
-    }
+
 }

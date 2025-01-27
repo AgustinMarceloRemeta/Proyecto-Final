@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &13260066
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2034,6 +2034,7 @@ GameObject:
   - component: {fileID: 339846270}
   - component: {fileID: 339846271}
   - component: {fileID: 339846272}
+  - component: {fileID: 339846273}
   m_Layer: 0
   m_Name: DataController
   m_TagString: Untagged
@@ -2145,6 +2146,22 @@ MonoBehaviour:
   noteText: {fileID: 589860621}
   alertText: {fileID: 0}
   settingsPanel: {fileID: 1263637686}
+  actualCourse: 
+--- !u!114 &339846273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339846266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48547fee420309347b0ea094f75c36c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notes: []
+  nameText: {fileID: 0}
+  lastNameText: {fileID: 0}
 --- !u!1 &385994106
 GameObject:
   m_ObjectHideFlags: 0
@@ -5028,7 +5045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &719476990
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5942,6 +5959,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 339846273}
+        m_TargetAssemblyTypeName: AddStudentController, Assembly-CSharp
+        m_MethodName: CreateNewStudent
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6875,13 +6904,13 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1890655003}
-  - {fileID: 719476990}
-  - {fileID: 13260066}
   - {fileID: 74852042}
-  - {fileID: 617769899}
   - {fileID: 90016429}
   - {fileID: 1945594590}
   - {fileID: 1263637687}
+  - {fileID: 719476990}
+  - {fileID: 13260066}
+  - {fileID: 617769899}
   m_Father: {fileID: 933607864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

@@ -59,7 +59,7 @@ public class DataManager : MonoBehaviour
         {
             //esto es temporal hasta que haga un json de cursos o algo por el estilo;
             if (!CoursesManager.instance.coursesNames.Contains(item.course)) CoursesManager.instance.NewCourse(item.course, 10);
-            CoursesManager.instance.AddNewStudent(item);
+            AddStudentController.instance.AddNewStudent(item);
         }
     }
 

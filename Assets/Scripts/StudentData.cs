@@ -26,5 +26,5 @@ public class JsonData
 public class Note
 {
     public string referencia;
-    public int value;
+    public float value;
 }
