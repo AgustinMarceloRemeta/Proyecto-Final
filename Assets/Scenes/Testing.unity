@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &13260066
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2160,8 +2160,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notes: []
-  nameText: {fileID: 0}
-  lastNameText: {fileID: 0}
+  nameText: {fileID: 310435616}
+  lastNameText: {fileID: 583094967}
+  referenceText: {fileID: 0}
+  noteValueText: {fileID: 0}
 --- !u!1 &385994106
 GameObject:
   m_ObjectHideFlags: 0
@@ -5045,7 +5047,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &719476990
 RectTransform:
   m_ObjectHideFlags: 0
