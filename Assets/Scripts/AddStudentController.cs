@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class AddStudentController : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class AddStudentController : MonoBehaviour
         Note note = new Note();
         note.referencia = referenceText.text;
         //TODO: CONVERTIR DE STRING A FLOAT;
-        note.value = noteValueText.text;
+        note.value = Convert.ToSingle(noteValueText.text);
         notes.Add(note);
     }
 
