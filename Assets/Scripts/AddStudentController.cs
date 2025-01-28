@@ -8,7 +8,7 @@ public class AddStudentController : MonoBehaviour
 {
     public List<Note> notes = new List<Note>();
     public static AddStudentController instance;
-    [SerializeField] TextMeshProUGUI nameText, lastNameText, referenceText, noteValueText;
+    [SerializeField] TextMeshProUGUI nameText, lastNameText, referenceText, noteValueText, notesText;
 
     private void Awake()
     {
@@ -39,13 +39,23 @@ public class AddStudentController : MonoBehaviour
         }
     }
 
-    public void AddNote(string reference, float noteValue)
+    public void AddNote()
     {
         Note note = new Note();
         note.referencia = referenceText.text;
-        //TODO: CONVERTIR DE STRING A FLOAT;
-        note.value = Convert.ToSingle(noteValueText.text);
+        //TODO: NO ANDA
+        note.value = float.Parse(noteValueText.text);
         notes.Add(note);
+        UpdateText();
+    }
+
+    public void UpdateText()
+    {
+        notesText.text = "Notas: ";
+        foreach (var item in notes)
+        {
+            notesText.text += item.referencia + " " + item.value + " / ";
+        }
     }
 
     public void ResetScript()
