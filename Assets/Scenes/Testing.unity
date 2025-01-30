@@ -2162,8 +2162,10 @@ MonoBehaviour:
   notes: []
   nameText: {fileID: 310435616}
   lastNameText: {fileID: 583094967}
-  referenceText: {fileID: 0}
-  noteValueText: {fileID: 0}
+  referenceText: {fileID: 1568623849}
+  noteValueText: {fileID: 290691009}
+  notesText: {fileID: 880659022}
+  alertText: {fileID: 880659022}
 --- !u!1 &385994106
 GameObject:
   m_ObjectHideFlags: 0
@@ -8812,10 +8814,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 13260065}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 339846273}
+        m_TargetAssemblyTypeName: AddStudentController, Assembly-CSharp
+        m_MethodName: AddNote
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8823,18 +8825,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 74852041}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1444024676
 MonoBehaviour:
@@ -9189,6 +9179,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1520627300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1520627302}
+  - component: {fileID: 1520627301}
+  m_Layer: 0
+  m_Name: Alert
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1520627301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520627300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5fd6e7b9d54f14b804eb9eaf0aeec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1520627302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520627300}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 540, y: 722.724, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1522505662
 GameObject:
   m_ObjectHideFlags: 0
@@ -12731,3 +12765,4 @@ SceneRoots:
   - {fileID: 339846269}
   - {fileID: 933607864}
   - {fileID: 1795345089}
+  - {fileID: 1520627302}

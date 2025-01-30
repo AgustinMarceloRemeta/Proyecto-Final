@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using System.Globalization;
 
 public class AddStudentController : MonoBehaviour
 {
     public List<Note> notes = new List<Note>();
     public static AddStudentController instance;
-    [SerializeField] TextMeshProUGUI nameText, lastNameText, referenceText, noteValueText, notesText;
+    [SerializeField] TextMeshProUGUI nameText, lastNameText, referenceText, noteValueText, notesText, alertText;
 
     private void Awake()
     {
@@ -42,9 +43,23 @@ public class AddStudentController : MonoBehaviour
     public void AddNote()
     {
         Note note = new Note();
+        if (string.IsNullOrWhiteSpace(referenceText.text)) //verifica si la referencia es valida
+        {
+            Alert.instance.StartAlert(AlertTexts.textInvalid, alertText);
+            return;
+        }
+        string cleanValueText = noteValueText.text.Replace("\u200B", "");
+        try //verifica si la nota es valida
+        {
+            note.value = int.Parse(cleanValueText.Trim(), CultureInfo.InvariantCulture);
+        }
+        catch (FormatException)
+        {
+            Alert.instance.StartAlert(AlertTexts.valueInvalid, alertText);
+            return;
+        }
         note.referencia = referenceText.text;
-        //TODO: NO ANDA
-        note.value = float.Parse(noteValueText.text);
+
         notes.Add(note);
         UpdateText();
     }
