@@ -55,9 +55,9 @@ public class DataManager : MonoBehaviour
 
     public void SetCourses()
     {
+        foreach (var course in CoursesManager.instance.coursesList) course.GetComponent<CourseController>().students.Clear();
         foreach (StudentData item in LoadData.instance.data.students)
         {
-            //esto es temporal hasta que haga un json de cursos o algo por el estilo;
             if (!CoursesManager.instance.coursesNames.Contains(item.course)) CoursesManager.instance.NewCourse(item.course, 10);
             AddStudentController.instance.AddNewStudent(item);
         }

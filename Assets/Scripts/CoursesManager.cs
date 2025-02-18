@@ -16,18 +16,20 @@ public class CoursesManager : MonoBehaviour
     [SerializeField] GameObject parent;
     [SerializeField] GameObject panel;
     public GameObject studentsPanel;
-    public GameObject courses;
+    public GameObject coursesPanel;
+    public GameObject courseActualPanel;
     [SerializeField] TMP_InputField nameText;
     [SerializeField] TMP_InputField noteText;
     [SerializeField] TextMeshProUGUI alertText;
     [SerializeField] GameObject settingsPanel;
-    public string actualCourse;
+    public CourseController actualCourse;
+    public PanelCourseController panelCourseController;
     private void Awake()
     {
         instance = this;
     }
 
-    public void SetActualCouse(string course)=> actualCourse = course;
+    public void SetActualCouse(CourseController course)=> actualCourse = course;
 
     public void SetNewCourse()
     {
@@ -54,7 +56,7 @@ public class CoursesManager : MonoBehaviour
             return;
         }
         NewCourse(nameText.text, newNoteMax);
-        courses.SetActive(true);
+        coursesPanel.SetActive(true);
         settingsPanel.SetActive(false);
 
     }

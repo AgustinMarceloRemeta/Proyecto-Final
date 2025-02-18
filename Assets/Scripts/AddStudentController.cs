@@ -20,7 +20,7 @@ public class AddStudentController : MonoBehaviour
         StudentData studentData = new StudentData();
         studentData.name = nameText.text;
         studentData.lastName = lastNameText.text;
-        studentData.course = CoursesManager.instance.actualCourse;
+        studentData.course = CoursesManager.instance.actualCourse.nameCourse;
         studentData.notes = notes;
         AddNewStudent(studentData);
         LoadData.instance.data.students.Add(studentData);
