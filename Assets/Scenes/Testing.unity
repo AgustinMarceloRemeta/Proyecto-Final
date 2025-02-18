@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &13260066
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2141,12 +2141,14 @@ MonoBehaviour:
   parent: {fileID: 1131435805}
   panel: {fileID: 1067757445}
   studentsPanel: {fileID: 1945594589}
-  courses: {fileID: 90016428}
+  coursesPanel: {fileID: 90016428}
+  courseActualPanel: {fileID: 617769898}
   nameText: {fileID: 1766606171}
   noteText: {fileID: 589860621}
   alertText: {fileID: 0}
   settingsPanel: {fileID: 1263637686}
-  actualCourse: 
+  actualCourse: {fileID: 0}
+  panelCourseController: {fileID: 617769900}
 --- !u!114 &339846273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3558,15 +3560,15 @@ RectTransform:
   m_GameObject: {fileID: 568801005}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.81, y: 1.81, z: 1.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 204295647}
-  m_Father: {fileID: 617769899}
+  m_Father: {fileID: 1522505663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 107}
+  m_AnchoredPosition: {x: 0, y: -40.331482}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &568801007
@@ -3613,7 +3615,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1890655002}
+      - m_Target: {fileID: 617769898}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -3625,10 +3627,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 74852041}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 617769900}
+        m_TargetAssemblyTypeName: PanelCourseController, Assembly-CSharp
+        m_MethodName: OpenStudents
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4566,8 +4568,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 617769899}
+  - component: {fileID: 617769900}
   m_Layer: 5
-  m_Name: Curso
+  m_Name: Curso*
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4587,7 +4590,6 @@ RectTransform:
   m_Children:
   - {fileID: 1016750731}
   - {fileID: 1522505663}
-  - {fileID: 568801006}
   - {fileID: 2049996111}
   - {fileID: 1540277548}
   m_Father: {fileID: 1067757446}
@@ -4597,6 +4599,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &617769900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617769898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bfeeca6bc760504ea76ae2b7679634c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textName: {fileID: 1016750732}
 --- !u!1 &634441279
 GameObject:
   m_ObjectHideFlags: 0
@@ -9255,6 +9270,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 601627791}
+  - {fileID: 568801006}
   m_Father: {fileID: 617769899}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -9306,7 +9322,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1890655002}
+      - m_Target: {fileID: 617769898}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -9318,7 +9334,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 74852041}
+      - m_Target: {fileID: 719476989}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -11536,7 +11552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1890655003
 RectTransform:
   m_ObjectHideFlags: 0
