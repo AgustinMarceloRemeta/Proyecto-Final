@@ -15,6 +15,8 @@ public class StudentData
     public float noteAverage;
     public float notePercentage;
     public string course;
+    private Dictionary<string, DiaInfo> _historialDias = new Dictionary<string, DiaInfo>();
+
 }
 [Serializable]
 public class JsonData

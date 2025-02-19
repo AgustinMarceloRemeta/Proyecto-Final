@@ -25,7 +25,6 @@ public class Dia : MonoBehaviour
     {
         _diaTexto = gameObject.GetComponentInChildren<TextMeshProUGUI>();
         button = GetComponentInChildren<Button>();
-        // Removido el estado inicial fijo
     }
 
     public void ConfigurarDiaActual(int dia, int mes, int año, CalendarioGerador cal)
@@ -44,7 +43,6 @@ public class Dia : MonoBehaviour
 
     public void SetButton()
     {
-        // Limpiar listeners anteriores para evitar duplicados
         button.onClick.RemoveAllListeners();
 
         if (weekend)
@@ -58,7 +56,11 @@ public class Dia : MonoBehaviour
     public void SetDiaAtivo(bool ativo)
     {
         _diaTexto.gameObject.SetActive(ativo);
-        button.interactable = ativo;
+    }
+
+    public void SetInteractable(bool interactable)
+    {
+        button.interactable = interactable;
     }
 
     public void AtualizarDiaTexto(string novoDia)
@@ -68,7 +70,7 @@ public class Dia : MonoBehaviour
 
     public void OnClickButton()
     {
-        if (weekend) return; // No permitir cambios en días de fin de semana
+        if (weekend || !button.interactable) return;
 
         if (estadoActual == EstadoAsistencia.noSelected)
         {

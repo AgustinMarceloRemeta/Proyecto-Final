@@ -12,6 +12,7 @@ public class DiaInfo
     public int Mes;
     public int Año;
     public EstadoAsistencia Estado;
+    public DateTime Fecha;
 
     public DiaInfo(int dia, int mes, int año, EstadoAsistencia estado)
     {
@@ -19,9 +20,9 @@ public class DiaInfo
         Mes = mes;
         Año = año;
         Estado = estado;
+        Fecha = new DateTime(año, mes, dia);
     }
 }
-
 public class CalendarioGerador : MonoBehaviour
 {
     private DateTime _dataCalendarioExibido;
@@ -30,14 +31,51 @@ public class CalendarioGerador : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _mesAnoTexto;
     private DateTimeFormatInfo _traducao;
 
-    // Diccionario para almacenar el historial de estados
+    // Nueva variable para la fecha inicial
+    [SerializeField] private string fechaInicialStr = "2024-01-01"; // Formato YYYY-MM-DD
+    private DateTime fechaInicial;
+    private DateTime fechaActual;
+
     private Dictionary<string, DiaInfo> _historialDias = new Dictionary<string, DiaInfo>();
 
     private void Start()
     {
-        InicializaCalendario();
-    }
+        if (!DateTime.TryParse(fechaInicialStr, out fechaInicial))
+        {
+            Debug.LogError("Formato de fecha inicial inválido. Usando fecha actual.");
+            fechaInicial = DateTime.Today;
+        }
 
+        fechaActual = DateTime.Today;
+        InicializaCalendario();
+        MarcarFaltasAutomaticas();
+    }
+    private void MarcarFaltasAutomaticas()
+    {
+        DateTime fechaIteracion = fechaInicial;
+
+        while (fechaIteracion <= fechaActual)
+        {
+            string clave = GenerarClaveDia(fechaIteracion.Day, fechaIteracion.Month, fechaIteracion.Year);
+
+            // Solo marca falta si:
+            // 1. No es fin de semana
+            // 2. No tiene un estado guardado
+            // 3. La fecha es anterior o igual a la actual
+            if (!EsFinDeSemana(fechaIteracion) &&
+                !_historialDias.ContainsKey(clave) &&
+                fechaIteracion <= fechaActual)
+            {
+                GuardarEstadoDia(fechaIteracion.Day, fechaIteracion.Month, fechaIteracion.Year, EstadoAsistencia.noSelected);
+            }
+
+            fechaIteracion = fechaIteracion.AddDays(1);
+        }
+    }
+    private bool EsFinDeSemana(DateTime fecha)
+    {
+        return fecha.DayOfWeek == DayOfWeek.Saturday || fecha.DayOfWeek == DayOfWeek.Sunday;
+    }
     // Método para generar la clave única para cada día
     private string GenerarClaveDia(int dia, int mes, int año)
     {
@@ -66,6 +104,15 @@ public class CalendarioGerador : MonoBehaviour
         {
             return _historialDias[clave].Estado;
         }
+
+        DateTime fechaConsultada = new DateTime(año, mes, dia);
+
+        // Si la fecha es anterior o igual a la actual y posterior o igual a la inicial
+        if (fechaConsultada <= fechaActual && fechaConsultada >= fechaInicial && !EsFinDeSemana(fechaConsultada))
+        {
+            return EstadoAsistencia.noSelected;
+        }
+
         return EstadoAsistencia.SinClase;
     }
 
@@ -77,7 +124,6 @@ public class CalendarioGerador : MonoBehaviour
         SetTextoMesAno();
         GerarDias();
     }
-
     private void GerarSemanas()
     {
         for (int i = 0; i < _semanasText.Length; i++)
@@ -101,31 +147,24 @@ public class CalendarioGerador : MonoBehaviour
             _dias[i].SetDiaAtivo(true);
             _dias[i].AtualizarDiaTexto(dia.ToString());
 
+            DateTime fechaDia = new DateTime(_dataCalendarioExibido.Year, _dataCalendarioExibido.Month, dia);
+            bool esFuturo = fechaDia > fechaActual;
+            bool esAnteriorAInicial = fechaDia < fechaInicial;
+
             int diaDaSemana = (i % 7);
             _dias[i].weekend = (diaDaSemana == 0 || diaDaSemana == 6);
 
-            // Recuperar el estado guardado para este día
-            string clave = GenerarClaveDia(dia, _dataCalendarioExibido.Month, _dataCalendarioExibido.Year);
-            EstadoAsistencia estadoInicial;
-
-            if (_historialDias.ContainsKey(clave))
-            {
-                // Si ya tiene un estado guardado, usar ese
-                estadoInicial = _historialDias[clave].Estado;
-            }
-            else
-            {
-                // Si es fin de semana, iniciar en gris (SinClase)
-                // Si no, iniciar en verde (Asistio)
-                estadoInicial = _dias[i].weekend ? EstadoAsistencia.SinClase : EstadoAsistencia.noSelected;
-            }
+            // Obtener el estado inicial para este día
+            EstadoAsistencia estadoInicial = ObtenerEstadoDia(dia, _dataCalendarioExibido.Month, _dataCalendarioExibido.Year);
 
             _dias[i].EstablecerEstado(estadoInicial);
             _dias[i].ConfigurarDiaActual(dia, _dataCalendarioExibido.Month, _dataCalendarioExibido.Year, this);
             _dias[i].SetButton();
+
+            // Deshabilitar días futuros y anteriores a la fecha inicial
+            _dias[i].SetInteractable(!esFuturo && !esAnteriorAInicial);
         }
     }
-
     public void AlteraMes(int sentido)
     {
         _dataCalendarioExibido = _dataCalendarioExibido.AddMonths(sentido);
