@@ -186,4 +186,16 @@ public class CalendarioGerador : MonoBehaviour
             _dias[i].SetDiaAtivo(false);
         }
     }
+
+    //Funciones hechas por mi
+    public void SetHistorialDias(Dictionary<string, DiaInfo> newHistorialDias)
+    {
+        _historialDias.Clear();
+        _historialDias = new Dictionary<string, DiaInfo>(newHistorialDias);
+    }
+
+    public Dictionary<string, DiaInfo> ReturnHistorialDias()
+    {
+        return _historialDias;
+    }
 }

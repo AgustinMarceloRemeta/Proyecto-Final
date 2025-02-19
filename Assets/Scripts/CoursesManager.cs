@@ -24,6 +24,7 @@ public class CoursesManager : MonoBehaviour
     [SerializeField] GameObject settingsPanel;
     public CourseController actualCourse;
     public PanelCourseController panelCourseController;
+    public DateDropdownController dateDropdownController;
     private void Awake()
     {
         instance = this;
@@ -55,13 +56,13 @@ public class CoursesManager : MonoBehaviour
             print("Ingrese un nombre correcto");
             return;
         }
-        NewCourse(nameText.text, newNoteMax);
+        NewCourse(nameText.text, newNoteMax,dateDropdownController.GetSelectedDate());
         coursesPanel.SetActive(true);
         settingsPanel.SetActive(false);
 
     }
 
-    public void NewCourse(string course, float noteMax)
+    public void NewCourse(string course, float noteMax, string newDate)
     {
         GameObject newCourse = GameObject.Instantiate(prefabCourse);
         newCourse.transform.SetParent(parent.transform);
@@ -73,6 +74,7 @@ public class CoursesManager : MonoBehaviour
         courseController.nameCourse = course;
         courseController.nameText.text = course;
         courseController.noteMax = noteMax;
+        courseController.initialDate = newDate;
     }
 
 

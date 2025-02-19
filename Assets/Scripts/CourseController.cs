@@ -8,7 +8,7 @@ public class CourseController : MonoBehaviour
     public string nameCourse;
     public TextMeshProUGUI nameText;
     public float noteMax;
-
+    public string initialDate;
     private void Start()
     {
         foreach (StudentData item in students) DataManager.instance.SetAverages(item,noteMax);
