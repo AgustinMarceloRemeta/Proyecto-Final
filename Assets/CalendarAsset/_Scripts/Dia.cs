@@ -6,36 +6,59 @@ public enum EstadoAsistencia
 {
     Asistio,    // Verde
     NoAsistio,  // Rojo
-    SinClase    // Gris
+    SinClase,    // Gris
+    noSelected
 }
 
 public class Dia : MonoBehaviour
 {
     private TextMeshProUGUI _diaTexto;
     private Button button;
-    public bool selected = false;
     public bool weekend = false;
-    private EstadoAsistencia estadoActual = EstadoAsistencia.SinClase;
+    private EstadoAsistencia estadoActual = EstadoAsistencia.noSelected;
+    private int diaActual;
+    private int mesActual;
+    private int añoActual;
+    private CalendarioGerador calendario;
 
     private void Awake()
     {
         _diaTexto = gameObject.GetComponentInChildren<TextMeshProUGUI>();
         button = GetComponentInChildren<Button>();
+        // Removido el estado inicial fijo
+    }
+
+    public void ConfigurarDiaActual(int dia, int mes, int año, CalendarioGerador cal)
+    {
+        diaActual = dia;
+        mesActual = mes;
+        añoActual = año;
+        calendario = cal;
+    }
+
+    public void EstablecerEstado(EstadoAsistencia estado)
+    {
+        estadoActual = estado;
+        ActualizarColor();
     }
 
     public void SetButton()
     {
+        // Limpiar listeners anteriores para evitar duplicados
+        button.onClick.RemoveAllListeners();
+
         if (weekend)
         {
             estadoActual = EstadoAsistencia.SinClase;
             ActualizarColor();
         }
-        button.onClick.AddListener(() => OnClickButton());
+        button.onClick.AddListener(OnClickButton);
     }
 
     public void SetDiaAtivo(bool ativo)
     {
         _diaTexto.gameObject.SetActive(ativo);
+        button.interactable = ativo;
     }
 
     public void AtualizarDiaTexto(string novoDia)
@@ -45,56 +68,41 @@ public class Dia : MonoBehaviour
 
     public void OnClickButton()
     {
-        // Agregar debug para ver el flujo
-        Debug.Log($"Click - Estado Actual: {estadoActual}, Selected: {selected}");
+        if (weekend) return; // No permitir cambios en días de fin de semana
 
-        if (!selected)
+        if (estadoActual == EstadoAsistencia.noSelected)
         {
-            selected = true;
             estadoActual = EstadoAsistencia.Asistio;
-            ActualizarColor();
         }
         else
         {
-            // Si está seleccionado, cambia al siguiente estado
             CambiarEstado();
         }
 
-        Debug.Log($"Después del cambio - Estado Actual: {estadoActual}, Selected: {selected}");
+        ActualizarColor();
+        calendario.GuardarEstadoDia(diaActual, mesActual, añoActual, estadoActual);
     }
 
     private void CambiarEstado()
     {
-        switch (estadoActual)
+        estadoActual = estadoActual switch
         {
-            case EstadoAsistencia.Asistio:
-                estadoActual = EstadoAsistencia.NoAsistio;
-                break;
-            case EstadoAsistencia.NoAsistio:
-                estadoActual = EstadoAsistencia.SinClase;
-                break;
-            case EstadoAsistencia.SinClase:
-                estadoActual = EstadoAsistencia.Asistio;
-                break;
-        }
-
-        ActualizarColor();
-        // No deseleccionamos aquí para permitir múltiples cambios
+            EstadoAsistencia.Asistio => EstadoAsistencia.NoAsistio,
+            EstadoAsistencia.NoAsistio => EstadoAsistencia.SinClase,
+            EstadoAsistencia.SinClase => EstadoAsistencia.Asistio,
+            _ => EstadoAsistencia.Asistio
+        };
     }
 
     private void ActualizarColor()
     {
-        switch (estadoActual)
+        _diaTexto.color = estadoActual switch
         {
-            case EstadoAsistencia.Asistio:
-                _diaTexto.color = Color.green;
-                break;
-            case EstadoAsistencia.NoAsistio:
-                _diaTexto.color = Color.red;
-                break;
-            case EstadoAsistencia.SinClase:
-                _diaTexto.color = Color.grey;
-                break;
-        }
+            EstadoAsistencia.Asistio => Color.green,
+            EstadoAsistencia.NoAsistio => Color.red,
+            EstadoAsistencia.SinClase => Color.grey,
+            EstadoAsistencia.noSelected => Color.white,
+            _ => Color.white
+        };
     }
 }
