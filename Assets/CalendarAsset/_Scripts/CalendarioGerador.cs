@@ -32,7 +32,7 @@ public class CalendarioGerador : MonoBehaviour
     private DateTimeFormatInfo _traducao;
 
     // Nueva variable para la fecha inicial
-    [SerializeField] private string fechaInicialStr = "2024-01-01"; // Formato YYYY-MM-DD
+    [SerializeField] private string fechaInicialStr = "2025-01-01"; // Formato YYYY-MM-DD
     private DateTime fechaInicial;
     private DateTime fechaActual;
 
