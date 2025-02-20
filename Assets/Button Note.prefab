@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 7773380713014930780}
   - component: {fileID: 5198718123686676634}
   - component: {fileID: 464426254519107304}
+  - component: {fileID: 7246249368840422765}
   m_Layer: 5
   m_Name: Button Note
   m_TagString: Untagged
@@ -256,4 +257,40 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5198718123686676634}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7246249368840422765}
+        m_TargetAssemblyTypeName: ButtonDelete, Assembly-CSharp
+        m_MethodName: PlayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7246249368840422765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5837450818379281526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f6c9e94706dcc0408a9bdc77d52c533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  student:
+    name: 
+    lastName: 
+    attendanceBools: 
+    attendancePercentage: 0
+    absence: 0
+    attendances: 0
+    totalDays: 0
+    notes: []
+    noteAverage: 0
+    notePercentage: 0
+    course: 

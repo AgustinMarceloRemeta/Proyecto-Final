@@ -72,9 +72,9 @@ public class StudentsListManager : MonoBehaviour
             CreateText(student.name, nameContainer, yOffset, nameTexts);
             CreateText($"{student.attendancePercentage}%", attendancesContainer, yOffset, attendanceTexts);
             CreateText(student.noteAverage.ToString(), noteContainer, yOffset, noteTexts);
-            CreateButton(noteButtonContainer, yOffset, noteButtons, noteButton);
-            CreateButton(attendanceButtonContainer, yOffset, attendanceButtons, attendanceButton);
-            CreateButton(noteButtonContainer, yOffset, delButtons, delButton);
+            CreateButton(noteButtonContainer, yOffset, noteButtons, noteButton, student);
+            CreateButton(attendanceButtonContainer, yOffset, attendanceButtons, attendanceButton, student);
+            CreateButton(delButtonContainer, yOffset, delButtons, delButton, student);
 
         }
         float totalHeight = initialTopOffset + (verticalSpacing * students.Count);
@@ -100,9 +100,10 @@ public class StudentsListManager : MonoBehaviour
 
         textList.Add(newText);
     }
-    private void CreateButton(RectTransform container, float yOffset, List<Button> buttonList,Button buttonPrefab)
+    private void CreateButton(RectTransform container, float yOffset, List<Button> buttonList,Button buttonPrefab,StudentData student)
     {
         Button newButton = Instantiate(buttonPrefab, container);
+        newButton.GetComponent<ButtonFunction>().student = student;
 
         // Mantener la posición X del container y solo modificar la Y
         RectTransform rectTransform = newButton.GetComponent<RectTransform>();
