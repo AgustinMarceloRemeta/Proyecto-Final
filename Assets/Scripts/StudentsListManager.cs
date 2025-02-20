@@ -13,9 +13,12 @@ public class StudentsListManager : MonoBehaviour
     [SerializeField] private Button noteButton,attendanceButton,delButton;
 
     [Header("Configuration")]
-    [SerializeField] private float verticalSpacing = 50f;
+    [SerializeField] private float verticalSpacing = 100f;
+    [SerializeField] private float initialTopOffset = 20f; // Espacio inicial desde arriba
+
 
     [Header("Containers")]
+    [SerializeField] private RectTransform contentRectTransform;
     [SerializeField] private RectTransform lastNameContainer;
     [SerializeField] private RectTransform nameContainer;
     [SerializeField] private RectTransform attendancesContainer;
@@ -71,8 +74,14 @@ public class StudentsListManager : MonoBehaviour
             CreateText(student.noteAverage.ToString(), noteContainer, yOffset, noteTexts);
             CreateButton(noteButtonContainer, yOffset, noteButtons, noteButton);
             CreateButton(attendanceButtonContainer, yOffset, attendanceButtons, attendanceButton);
-            CreateButton(delButtonContainer, yOffset, delButtons, delButton);
+            CreateButton(noteButtonContainer, yOffset, delButtons, delButton);
+
         }
+        float totalHeight = initialTopOffset + (verticalSpacing * students.Count);
+
+        // Ajustar el tamaño del content
+        Vector2 currentSize = contentRectTransform.sizeDelta;
+        contentRectTransform.sizeDelta = new Vector2(currentSize.x, totalHeight + 50);
     }
 
     private void CreateText(string content, RectTransform container, float yOffset, List<TextMeshProUGUI> textList)
