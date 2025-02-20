@@ -40,6 +40,11 @@ public class CalendarioGerador : MonoBehaviour
 
     private void Start()
     {
+        Inicialize();
+    }
+
+    private void Inicialize()
+    {
         if (!DateTime.TryParse(fechaInicialStr, out fechaInicial))
         {
             Debug.LogError("Formato de fecha inicial inválido. Usando fecha actual.");
@@ -50,6 +55,7 @@ public class CalendarioGerador : MonoBehaviour
         InicializaCalendario();
         MarcarFaltasAutomaticas();
     }
+
     private void MarcarFaltasAutomaticas()
     {
         DateTime fechaIteracion = fechaInicial;
@@ -197,5 +203,10 @@ public class CalendarioGerador : MonoBehaviour
     public Dictionary<string, DiaInfo> ReturnHistorialDias()
     {
         return _historialDias;
+    }
+
+    public void SetInitialDate(string initialDate)
+    {
+        fechaInicialStr = initialDate;
     }
 }

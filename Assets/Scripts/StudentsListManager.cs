@@ -2,67 +2,108 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StudentsListManager : MonoBehaviour
 {
     public static StudentsListManager instance;
-    string inicialText;
-    [SerializeField] TextMeshProUGUI lastNameText, nameText, attendancesText, noteText;
+
+    [Header("Prefabs")]
+    [SerializeField] private TextMeshProUGUI textPrefab;
+    [SerializeField] private Button noteButton,attendanceButton,delButton;
+
+    [Header("Configuration")]
+    [SerializeField] private float verticalSpacing = 50f;
+
+    [Header("Containers")]
+    [SerializeField] private RectTransform lastNameContainer;
+    [SerializeField] private RectTransform nameContainer;
+    [SerializeField] private RectTransform attendancesContainer;
+    [SerializeField] private RectTransform noteContainer;
+    [SerializeField] private RectTransform noteButtonContainer;
+    [SerializeField] private RectTransform attendanceButtonContainer;
+    [SerializeField] private RectTransform delButtonContainer;
+
+    private List<TextMeshProUGUI> lastNameTexts = new List<TextMeshProUGUI>();
+    private List<TextMeshProUGUI> nameTexts = new List<TextMeshProUGUI>();
+    private List<TextMeshProUGUI> attendanceTexts = new List<TextMeshProUGUI>();
+    private List<TextMeshProUGUI> noteTexts = new List<TextMeshProUGUI>();
+    private List<Button> noteButtons = new List<Button>();
+    private List<Button> attendanceButtons = new List<Button>();
+    private List<Button> delButtons = new List<Button>();
 
     private void Awake()
     {
         instance = this;
-        inicialText= lastNameText.text;
     }
-    void Start()
+
+    private void ClearAllTexts()
     {
-        
+        ClearTextList(lastNameTexts);
+        ClearTextList(nameTexts);
+        ClearTextList(attendanceTexts);
+        ClearTextList(noteTexts);
+    }
+
+    private void ClearTextList(List<TextMeshProUGUI> texts)
+    {
+        foreach (var text in texts)
+        {
+            if (text != null)
+                Destroy(text.gameObject);
+        }
+        texts.Clear();
     }
 
     public void SetList(List<StudentData> students)
     {
-        lastNameText.text = SetLastNames(students);
-        nameText.text = SetOtherText(students, "name");
-        attendancesText.text = SetOtherText(students, "attendancePercentage");
-        noteText.text = SetOtherText(students, "noteAverage");
+        ClearAllTexts();
+
+        for (int i = 0; i < students.Count; i++)
+        {
+            StudentData student = students[i];
+            float yOffset = -verticalSpacing * i;
+
+            // Usar la posición de los containers como punto de inicio
+            CreateText(student.lastName, lastNameContainer, yOffset, lastNameTexts);
+            CreateText(student.name, nameContainer, yOffset, nameTexts);
+            CreateText($"{student.attendancePercentage}%", attendancesContainer, yOffset, attendanceTexts);
+            CreateText(student.noteAverage.ToString(), noteContainer, yOffset, noteTexts);
+            CreateButton(noteButtonContainer, yOffset, noteButtons, noteButton);
+            CreateButton(attendanceButtonContainer, yOffset, attendanceButtons, attendanceButton);
+            CreateButton(delButtonContainer, yOffset, delButtons, delButton);
+        }
     }
 
-    public string SetLastNames(List<StudentData> students)
+    private void CreateText(string content, RectTransform container, float yOffset, List<TextMeshProUGUI> textList)
     {
-        string newText = inicialText + "\n";
-        foreach (StudentData student in students)
-        {
-            newText += "  " + student.lastName + "\n \n \n";
-        }
-        return newText;
-    }
+        TextMeshProUGUI newText = Instantiate(textPrefab, container);
+        newText.text = content;
 
-    public string SetOtherText(List<StudentData> students, string nameProperty)
+        // Mantener la posición X del container y solo modificar la Y
+        RectTransform rectTransform = newText.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(0, yOffset);
+
+        // Copiar los valores de anchor y pivot del container
+        rectTransform.anchorMin = container.anchorMin;
+        rectTransform.anchorMax = container.anchorMax;
+        rectTransform.pivot = container.pivot;
+
+        textList.Add(newText);
+    }
+    private void CreateButton(RectTransform container, float yOffset, List<Button> buttonList,Button buttonPrefab)
     {
-        string newText = string.Empty;
-        foreach (StudentData student in students)
-        {
-            var studentType = student.GetType();
-            var property = studentType.GetField(nameProperty);
-            if (property != null)
-            {
-                var value = property.GetValue(student);
-                int wordCount = value.ToString().Split(' ').Length;
-                if (nameProperty == "attendancePercentage") newText += value + "% \n \n \n";
-                else
-                {
-                    if (wordCount > 1)
-                    {
-                        newText += value + "\n \n ";
-                    }
-                    else
-                    {
-                        newText += value + "\n \n \n";
-                    }
-                }
-            }
-            else return string.Empty;
-        }
-        return newText;
+        Button newButton = Instantiate(buttonPrefab, container);
+
+        // Mantener la posición X del container y solo modificar la Y
+        RectTransform rectTransform = newButton.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(0, yOffset);
+
+        // Copiar los valores de anchor y pivot del container
+        rectTransform.anchorMin = container.anchorMin;
+        rectTransform.anchorMax = container.anchorMax;
+        rectTransform.pivot = container.pivot;
+
+        buttonList.Add(newButton);
     }
 }
