@@ -148,9 +148,9 @@ GameObject:
   - component: {fileID: 7773380713014930780}
   - component: {fileID: 5198718123686676634}
   - component: {fileID: 464426254519107304}
-  - component: {fileID: 7425948351407306107}
+  - component: {fileID: 7246249368840422765}
   m_Layer: 5
-  m_Name: Button Note
+  m_Name: ButtonDelete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,8 +258,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7425948351407306107}
-        m_TargetAssemblyTypeName: ButtonNote, Assembly-CSharp
+      - m_Target: {fileID: 7246249368840422765}
+        m_TargetAssemblyTypeName: ButtonDelete, Assembly-CSharp
         m_MethodName: PlayButton
         m_Mode: 1
         m_Arguments:
@@ -270,7 +270,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7425948351407306107
+--- !u!114 &7246249368840422765
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5837450818379281526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bbda5fa52ac9b14790e09116fc428e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f6c9e94706dcc0408a9bdc77d52c533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   student:

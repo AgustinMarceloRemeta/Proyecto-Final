@@ -148,9 +148,9 @@ GameObject:
   - component: {fileID: 7773380713014930780}
   - component: {fileID: 5198718123686676634}
   - component: {fileID: 464426254519107304}
-  - component: {fileID: 7425948351407306107}
+  - component: {fileID: 8254765282950576177}
   m_Layer: 5
-  m_Name: Button Note
+  m_Name: ButtonAsistencia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.67562044, g: 0.990566, b: 0.34109113, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -258,8 +258,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7425948351407306107}
-        m_TargetAssemblyTypeName: ButtonNote, Assembly-CSharp
+      - m_Target: {fileID: 8254765282950576177}
+        m_TargetAssemblyTypeName: ButtonAttendances, Assembly-CSharp
         m_MethodName: PlayButton
         m_Mode: 1
         m_Arguments:
@@ -270,7 +270,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7425948351407306107
+--- !u!114 &8254765282950576177
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5837450818379281526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bbda5fa52ac9b14790e09116fc428e6, type: 3}
+  m_Script: {fileID: 11500000, guid: eda2d5c6f1a81914cbcd6d5d3c54914b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   student:

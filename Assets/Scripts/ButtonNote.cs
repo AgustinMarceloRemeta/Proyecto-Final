@@ -4,6 +4,8 @@ public class ButtonNote : ButtonFunction
 {
     public override void PlayButton()
     {
-        throw new System.NotImplementedException();
+        NoteManager.instance.selectedStudent = student;
+        NoteManager.instance.UpdateText();
+        PanelController.instance.ShowPanel(NoteManager.instance.notePanel);
     }
 }

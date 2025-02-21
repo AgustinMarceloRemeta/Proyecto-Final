@@ -40,6 +40,12 @@ public class StudentsListManager : MonoBehaviour
         instance = this;
     }
 
+    public void SetStudents()
+    {
+        if (CoursesManager.instance.actualCourse == null) SetList(LoadData.instance.data.students);
+        else SetList(CoursesManager.instance.actualCourse.students);
+    }
+
     private void ClearAllTexts()
     {
         ClearTextList(lastNameTexts);

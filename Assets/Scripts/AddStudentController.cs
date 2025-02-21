@@ -9,7 +9,7 @@ public class AddStudentController : MonoBehaviour
 {
     public List<Note> notes = new List<Note>();
     public static AddStudentController instance;
-    [SerializeField] TextMeshProUGUI nameText, lastNameText, referenceText, noteValueText, notesText, alertText;
+    [SerializeField] TextMeshProUGUI nameText, lastNameText;
 
     private void Awake()
     {
@@ -37,39 +37,6 @@ public class AddStudentController : MonoBehaviour
                 courseController.students.Add(student);
                 break;
             }
-        }
-    }
-
-    public void AddNote()
-    {
-        Note note = new Note();
-        if (string.IsNullOrWhiteSpace(referenceText.text)) //verifica si la referencia es valida
-        {
-            Alert.instance.StartAlert(AlertTexts.textInvalid, alertText);
-            return;
-        }
-        string cleanValueText = noteValueText.text.Replace("\u200B", "");
-        try //verifica si la nota es valida
-        {
-            note.value = int.Parse(cleanValueText.Trim(), CultureInfo.InvariantCulture);
-        }
-        catch (FormatException)
-        {
-            Alert.instance.StartAlert(AlertTexts.valueInvalid, alertText);
-            return;
-        }
-        note.referencia = referenceText.text;
-
-        notes.Add(note);
-        UpdateText();
-    }
-
-    public void UpdateText()
-    {
-        notesText.text = "Notas: ";
-        foreach (var item in notes)
-        {
-            notesText.text += item.referencia + " " + item.value + " / ";
         }
     }
 

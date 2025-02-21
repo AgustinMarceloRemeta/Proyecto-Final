@@ -15,7 +15,7 @@ public class StudentData
     public float noteAverage;
     public float notePercentage;
     public string course;
-    private Dictionary<string, DiaInfo> _historialDias = new Dictionary<string, DiaInfo>();
+    public List<DiaInfoEntry> historialDiasList = new List<DiaInfoEntry>();
 
 }
 [Serializable]
@@ -29,4 +29,45 @@ public class Note
 {
     public string referencia;
     public float value;
+}
+[Serializable]
+public class DiaInfoEntry
+{
+    public string key;
+    public DiaInfo value;
+
+    public DiaInfoEntry(string key, DiaInfo value)
+    {
+        this.key = key;
+        this.value = value;
+    }
+}
+public static class DictionaryConverter
+{
+    public static List<DiaInfoEntry> ConvertDictionaryToDiaInfoEntries(Dictionary<string, DiaInfo> dictionary)
+    {
+        List<DiaInfoEntry> entries = new List<DiaInfoEntry>();
+
+        foreach (KeyValuePair<string, DiaInfo> kvp in dictionary)
+        {
+            entries.Add(new DiaInfoEntry(kvp.Key, kvp.Value));
+        }
+
+        return entries;
+    }
+
+    public static Dictionary<string, DiaInfo> ConvertDiaInfoEntriesToDictionary(List<DiaInfoEntry> entries)
+    {
+        Dictionary<string, DiaInfo> dictionary = new Dictionary<string, DiaInfo>();
+
+        if (entries != null)
+        {
+            foreach (DiaInfoEntry entry in entries)
+            {
+                dictionary[entry.key] = entry.value;
+            }
+        }
+
+        return dictionary;
+    }
 }

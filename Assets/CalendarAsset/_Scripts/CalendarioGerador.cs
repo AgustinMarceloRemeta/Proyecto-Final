@@ -38,12 +38,9 @@ public class CalendarioGerador : MonoBehaviour
 
     private Dictionary<string, DiaInfo> _historialDias = new Dictionary<string, DiaInfo>();
 
-    private void Start()
-    {
-        Inicialize();
-    }
+  
 
-    private void Inicialize()
+    public void Inicialize()
     {
         if (!DateTime.TryParse(fechaInicialStr, out fechaInicial))
         {
@@ -196,7 +193,7 @@ public class CalendarioGerador : MonoBehaviour
     //Funciones hechas por mi
     public void SetHistorialDias(Dictionary<string, DiaInfo> newHistorialDias)
     {
-        _historialDias.Clear();
+       // _historialDias.Clear();
         _historialDias = new Dictionary<string, DiaInfo>(newHistorialDias);
     }
 

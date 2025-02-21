@@ -20,12 +20,9 @@ public class LoadData : MonoBehaviour
     {
         DataManager.instance.OrderStudents(data.students);
         DataManager.instance.SetCourses();
+        print(Application.persistentDataPath + "/StudentData.json");
     }
 
-    public void SetAllStudents()
-    {
-        StudentsListManager.instance.SetList(data.students);
-    }
     public JsonData ReturnData ()
     {
         string path = Application.persistentDataPath + "/StudentData.json";

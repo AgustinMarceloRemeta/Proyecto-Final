@@ -11,6 +11,7 @@ public class CoursesManager : MonoBehaviour
     [SerializeField] GameObject prefabCourse;
     public Stack<GameObject> coursesList = new Stack<GameObject>();
     public List<string> coursesNames = new List<string>();
+    List<CourseController> courseControllers = new List<CourseController>();
     [SerializeField] Vector3 originalPosition;
     [SerializeField] float distanceObjects;
     [SerializeField] GameObject parent;
@@ -75,7 +76,15 @@ public class CoursesManager : MonoBehaviour
         courseController.nameText.text = course;
         courseController.noteMax = noteMax;
         courseController.initialDate = newDate;
+        courseControllers.Add(courseController);
     }
 
-
+    public CourseController GetCourse(string course)
+    {
+        foreach (CourseController item in courseControllers)
+        {
+            if(item.nameCourse == course) return item;
+        }
+        return null;
+    }
 }
