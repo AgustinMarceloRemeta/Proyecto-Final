@@ -23,7 +23,7 @@ public class PanelCourseController : MonoBehaviour
     {
         DataManager.instance.SetCourses();
         StudentsListManager.instance.SetList(CoursesManager.instance.actualCourse.students);
-        CoursesManager.instance.studentsPanel.SetActive(true);
+        PanelController.instance.ShowPanel(CoursesManager.instance.studentsPanel);
     }
 
 }

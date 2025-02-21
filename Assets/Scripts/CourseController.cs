@@ -16,8 +16,7 @@ public class CourseController : MonoBehaviour
     public void OpenCourse()
     {
         StudentsListManager.instance.SetList(students);
-        CoursesManager.instance.coursesPanel.SetActive(false);
-        CoursesManager.instance.courseActualPanel.SetActive(true);
+        PanelController.instance.ShowPanel(CoursesManager.instance.courseActualPanel);
         CoursesManager.instance.panelCourseController.SetText(nameText.text);
         CoursesManager.instance.actualCourse = this;
     }

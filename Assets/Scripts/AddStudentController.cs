@@ -15,7 +15,7 @@ public class AddStudentController : MonoBehaviour
     {
         instance = this;
     }
-    public void CreateNewStudent()
+    public StudentData CreateNewStudent()
     {
         StudentData studentData = new StudentData();
         studentData.name = nameText.text;
@@ -25,6 +25,7 @@ public class AddStudentController : MonoBehaviour
         AddNewStudent(studentData);
         LoadData.instance.data.students.Add(studentData);
         ResetScript();
+        return studentData;
     }
 
     public void AddNewStudent(StudentData student)
@@ -40,6 +41,12 @@ public class AddStudentController : MonoBehaviour
         }
     }
 
+    public void AddNotes()
+    {
+        NoteManager.instance.selectedStudent = CreateNewStudent();
+        NoteManager.instance.UpdateText();
+        PanelController.instance.ShowPanel(NoteManager.instance.notePanel);
+    }
     public void ResetScript()
     {
          notes.Clear();
