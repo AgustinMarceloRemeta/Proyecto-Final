@@ -67,6 +67,7 @@ public class StudentsListManager : MonoBehaviour
     public void SetList(List<StudentData> students)
     {
         ClearAllTexts();
+        ClearAllButtons();
 
         for (int i = 0; i < students.Count; i++)
         {
@@ -142,5 +143,21 @@ public class StudentsListManager : MonoBehaviour
             if (entry.value.Estado == EstadoAsistencia.Asistio) value++;
         }
         return value;
+    }
+    private void ClearAllButtons()
+    {
+        ClearButtonList(noteButtons);
+        ClearButtonList(attendanceButtons);
+        ClearButtonList(delButtons);
+    }
+
+    private void ClearButtonList(List<Button> buttons)
+    {
+        foreach (var button in buttons)
+        {
+            if (button != null)
+                Destroy(button.gameObject);
+        }
+        buttons.Clear();
     }
 }
