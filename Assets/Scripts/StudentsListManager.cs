@@ -72,7 +72,9 @@ public class StudentsListManager : MonoBehaviour
         {
             StudentData student = students[i];
             float yOffset = -verticalSpacing * i;
-
+            student.absence = ConvertDiaInfoToAbtense(student.historialDiasList);
+            student.attendances = ConvertDiaInfoToAttendances(student.historialDiasList);
+            DataManager.instance.SetAverages(student, CoursesManager.instance.GetCourse(student.course).noteMax);
             // Usar la posición de los containers como punto de inicio
             CreateText(student.lastName, lastNameContainer, yOffset, lastNameTexts);
             CreateText(student.name, nameContainer, yOffset, nameTexts);
@@ -121,5 +123,24 @@ public class StudentsListManager : MonoBehaviour
         rectTransform.pivot = container.pivot;
 
         buttonList.Add(newButton);
+    }
+
+    public static float ConvertDiaInfoToAbtense(List<DiaInfoEntry> entries)
+    {
+        float value = 0;
+        foreach (DiaInfoEntry entry in entries)
+        {
+            if (entry.value.Estado == EstadoAsistencia.NoAsistio) value++;
+        }
+        return value;
+    } 
+    public static float ConvertDiaInfoToAttendances(List<DiaInfoEntry> entries)
+    {
+        float value = 0;
+        foreach (DiaInfoEntry entry in entries)
+        {
+            if (entry.value.Estado == EstadoAsistencia.Asistio) value++;
+        }
+        return value;
     }
 }

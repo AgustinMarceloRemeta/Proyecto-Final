@@ -6,11 +6,9 @@ public class StudentData
 {
     public string name;
     public string lastName;
-    public List <bool> attendanceBools;
     public float attendancePercentage;
     public float absence;
     public float attendances;
-    public float totalDays;
     public List <Note> notes;
     public float noteAverage;
     public float notePercentage;

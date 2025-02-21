@@ -9,22 +9,11 @@ public class DataManager : MonoBehaviour
     {
         instance = this;
     }
-    float SetAttendanceAverage(List <bool> attendance, string type)
+    float SetAttendanceAverage(StudentData student)
     {
-        int numbersOfAttendance = 0;
-        foreach (bool attendanceItem in attendance)
-        {
-            if(attendanceItem)
-            {
-                numbersOfAttendance++;
-            }
-        }
+        float numbersOfAttendance = student.absence + student.attendances;
 
-        if (type == "percentage") return attendance.Count > 0 ? (numbersOfAttendance * 100) / attendance.Count : 0;
-        else if (type == "attendances") return numbersOfAttendance;
-        else if (type == "absence") return attendance.Count - numbersOfAttendance;
-        else if (type == "totalDays") return attendance.Count;
-        else return 0;
+        return student.attendances > 0 ? (student.attendances  * 100) / numbersOfAttendance : 0;
     }
 
     float SetNoteAverage(List <Note> note, bool percentage, float noteMax)
@@ -40,10 +29,7 @@ public class DataManager : MonoBehaviour
 
     public void SetAverages(StudentData studentData,float noteMax)
     {
-        studentData.attendancePercentage = SetAttendanceAverage(studentData.attendanceBools, "percentage");
-        studentData.attendances = SetAttendanceAverage(studentData.attendanceBools, "attendances");
-        studentData.absence = SetAttendanceAverage(studentData.attendanceBools, "absence");
-        studentData.totalDays = SetAttendanceAverage(studentData.attendanceBools, "totalDays");
+        studentData.attendancePercentage = SetAttendanceAverage(studentData);
         studentData.noteAverage = SetNoteAverage(studentData.notes, false, noteMax);
         studentData.notePercentage = SetNoteAverage(studentData.notes, true, noteMax);
     }
