@@ -124,4 +124,37 @@ public class DateDropdownController : MonoBehaviour
         int day = dayDropdown.value + 1;
         return $"{year}-{month:00}-{day:00}";
     }
+    public void SetDateFromString(string dateString)
+    {
+        try
+        {
+            // Parsear la fecha del string
+            DateTime date = DateTime.ParseExact(dateString, "yyyy-MM-dd", null);
+
+            // Establecer el año
+            int yearIndex = date.Year - 2020; // Calcular el índice basado en el año inicial (2020)
+            if (yearIndex >= 0 && yearIndex <= 10) // Asegurarse que está en el rango 2020-2030
+            {
+                yearDropdown.value = yearIndex;
+            }
+            else
+            {
+                Debug.LogError($"Año {date.Year} fuera del rango permitido (2020-2030)");
+                return;
+            }
+
+            // Establecer el mes (restamos 1 porque los índices empiezan en 0)
+            monthDropdown.value = date.Month - 1;
+
+            // Actualizar el dropdown de días basado en el nuevo mes y año
+            UpdateDayDropdown();
+
+            // Establecer el día (restamos 1 porque los índices empiezan en 0)
+            dayDropdown.value = date.Day - 1;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error al parsear la fecha: {dateString}. Formato esperado: AAAA-MM-DD. Error: {e.Message}");
+        }
+    }
 }

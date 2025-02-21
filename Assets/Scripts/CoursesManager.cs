@@ -26,6 +26,8 @@ public class CoursesManager : MonoBehaviour
     public CourseController actualCourse;
     public PanelCourseController panelCourseController;
     public DateDropdownController dateDropdownController;
+    public DateDropdownController modifyDateDropdownController;
+    public TMP_InputField modifyNameText, modifyNoteText;
     private void Awake()
     {
         instance = this;
@@ -86,5 +88,57 @@ public class CoursesManager : MonoBehaviour
             if(item.nameCourse == course) return item;
         }
         return null;
+    }
+
+    public void ResetActualCourse()
+    {
+        actualCourse.ResetCourse();
+    }
+
+    public void SetModifiers()
+    {
+        modifyNameText.text= actualCourse.nameCourse; ;
+        modifyNoteText.text = actualCourse.noteMax.ToString();
+        modifyDateDropdownController.SetDateFromString(actualCourse.initialDate);
+    }
+
+    public void ModifyActualCourse()
+    {
+        float newNoteMax = 0;
+        bool courseNameCorrect = modifyNameText.text != string.Empty;
+        if (courseNameCorrect)
+            try
+            {
+                newNoteMax = int.Parse(modifyNoteText.text.Trim(), CultureInfo.InvariantCulture);
+                if (newNoteMax <= 0)
+                {
+                    print("numero invalido");
+                    return;
+                }
+            }
+            catch (FormatException)
+            {
+                print("Ingrese un numero");
+                return;
+            }
+        else
+        {
+            print("Ingrese un nombre correcto");
+            return;
+        }
+        coursesNames.Remove(actualCourse.nameCourse);
+        actualCourse.nameCourse= modifyNameText.text;
+        actualCourse.noteMax = newNoteMax;
+        actualCourse.initialDate = modifyDateDropdownController.GetSelectedDate();
+        foreach (var item in actualCourse.students)
+        {
+            item.course.courseName = modifyNameText.text;
+        }
+        coursesNames.Add(modifyNameText.text);
+        actualCourse.GetComponentInChildren<TextMeshProUGUI>().text = modifyNameText.text;
+    }
+    public void OpenActualCourse()
+    {
+        actualCourse.OpenCourse();
     }
 }

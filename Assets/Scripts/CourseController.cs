@@ -20,5 +20,18 @@ public class CourseController : MonoBehaviour
         CoursesManager.instance.panelCourseController.SetText(nameText.text);
         CoursesManager.instance.actualCourse = this;
     }
-   
+
+    public void ResetCourse()
+    {
+        foreach (var item in students)
+        {
+            item.attendancePercentage = 0;
+            item.absence= 0;
+            item.attendances = 0;
+            item.notes.Clear();
+            item.noteAverage= 0;
+            item.notePercentage = 0;
+            item.historialDiasList.Clear();
+        }
+    }
 }

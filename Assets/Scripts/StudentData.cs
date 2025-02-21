@@ -12,7 +12,7 @@ public class StudentData
     public List <Note> notes;
     public float noteAverage;
     public float notePercentage;
-    public string course;
+    public DataCourse course;
     public List<DiaInfoEntry> historialDiasList = new List<DiaInfoEntry>();
 
 }
@@ -68,4 +68,10 @@ public static class DictionaryConverter
 
         return dictionary;
     }
+}
+[Serializable]
+public class DataCourse
+{
+    public string courseName;
+    public bool closed = false;
 }

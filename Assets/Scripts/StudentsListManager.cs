@@ -75,7 +75,7 @@ public class StudentsListManager : MonoBehaviour
             float yOffset = -verticalSpacing * i;
             student.absence = ConvertDiaInfoToAbtense(student.historialDiasList);
             student.attendances = ConvertDiaInfoToAttendances(student.historialDiasList);
-            DataManager.instance.SetAverages(student, CoursesManager.instance.GetCourse(student.course).noteMax);
+            DataManager.instance.SetAverages(student, CoursesManager.instance.GetCourse(student.course.courseName).noteMax);
             // Usar la posición de los containers como punto de inicio
             CreateText(student.lastName, lastNameContainer, yOffset, lastNameTexts);
             CreateText(student.name, nameContainer, yOffset, nameTexts);

@@ -20,7 +20,7 @@ public class AddStudentController : MonoBehaviour
         StudentData studentData = new StudentData();
         studentData.name = nameText.text;
         studentData.lastName = lastNameText.text;
-        studentData.course = CoursesManager.instance.actualCourse.nameCourse;
+        studentData.course.courseName = CoursesManager.instance.actualCourse.nameCourse;
         studentData.notes = notes;
         AddNewStudent(studentData);
         LoadData.instance.data.students.Add(studentData);
@@ -33,7 +33,7 @@ public class AddStudentController : MonoBehaviour
         foreach (var item in CoursesManager.instance.coursesList)
         {
             CourseController courseController = item.GetComponent<CourseController>();
-            if (courseController.nameCourse == student.course)
+            if (courseController.nameCourse == student.course.courseName)
             {
                 courseController.students.Add(student);
                 break;
@@ -41,6 +41,10 @@ public class AddStudentController : MonoBehaviour
         }
     }
 
+    public void CreateStudentButton()
+    {
+        CreateNewStudent();
+    }
     public void AddNotes()
     {
         NoteManager.instance.selectedStudent = CreateNewStudent();
