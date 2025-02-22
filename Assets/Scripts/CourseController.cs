@@ -5,7 +5,7 @@ using TMPro;
 public class CourseController : MonoBehaviour
 {
     public List<StudentData> students;
-    public string nameCourse;
+    public DataCourse dataCourse;
     public TextMeshProUGUI nameText;
     public float noteMax;
     public string initialDate;
@@ -15,10 +15,10 @@ public class CourseController : MonoBehaviour
     }
     public void OpenCourse()
     {
+        CoursesManager.instance.actualCourse = this;
         StudentsListManager.instance.SetList(students);
         PanelController.instance.ShowPanel(CoursesManager.instance.courseActualPanel);
         CoursesManager.instance.panelCourseController.SetText(nameText.text);
-        CoursesManager.instance.actualCourse = this;
     }
 
     public void ResetCourse()

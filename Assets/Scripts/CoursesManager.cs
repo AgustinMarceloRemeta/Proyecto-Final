@@ -59,23 +59,25 @@ public class CoursesManager : MonoBehaviour
             print("Ingrese un nombre correcto");
             return;
         }
-        NewCourse(nameText.text, newNoteMax,dateDropdownController.GetSelectedDate());
+       DataCourse dataCourse = new DataCourse();
+        dataCourse.courseName = nameText.text;
+        NewCourse(dataCourse, newNoteMax,dateDropdownController.GetSelectedDate());
         coursesPanel.SetActive(true);
         settingsPanel.SetActive(false);
 
     }
 
-    public void NewCourse(string course, float noteMax, string newDate)
+    public void NewCourse(DataCourse course, float noteMax, string newDate)
     {
         GameObject newCourse = GameObject.Instantiate(prefabCourse);
         newCourse.transform.SetParent(parent.transform);
         if (coursesList.Count > 0) newCourse.transform.localPosition = coursesList.Peek().transform.localPosition - new Vector3(0, distanceObjects, 0);
         else newCourse.transform.localPosition = originalPosition;
         coursesList.Push(newCourse);
-        coursesNames.Add(course);
+        coursesNames.Add(course.courseName);
         CourseController courseController = newCourse.GetComponent<CourseController>();
-        courseController.nameCourse = course;
-        courseController.nameText.text = course;
+        courseController.dataCourse = course;
+        courseController.nameText.text = course.courseName;
         courseController.noteMax = noteMax;
         courseController.initialDate = newDate;
         courseControllers.Add(courseController);
@@ -85,7 +87,7 @@ public class CoursesManager : MonoBehaviour
     {
         foreach (CourseController item in courseControllers)
         {
-            if(item.nameCourse == course) return item;
+            if(item.dataCourse.courseName == course) return item;
         }
         return null;
     }
@@ -97,7 +99,7 @@ public class CoursesManager : MonoBehaviour
 
     public void SetModifiers()
     {
-        modifyNameText.text= actualCourse.nameCourse; ;
+        modifyNameText.text= actualCourse.dataCourse.courseName; ;
         modifyNoteText.text = actualCourse.noteMax.ToString();
         modifyDateDropdownController.SetDateFromString(actualCourse.initialDate);
     }
@@ -126,8 +128,8 @@ public class CoursesManager : MonoBehaviour
             print("Ingrese un nombre correcto");
             return;
         }
-        coursesNames.Remove(actualCourse.nameCourse);
-        actualCourse.nameCourse= modifyNameText.text;
+        coursesNames.Remove(actualCourse.dataCourse.courseName);
+        actualCourse.dataCourse.courseName = modifyNameText.text;
         actualCourse.noteMax = newNoteMax;
         actualCourse.initialDate = modifyDateDropdownController.GetSelectedDate();
         foreach (var item in actualCourse.students)
@@ -140,5 +142,9 @@ public class CoursesManager : MonoBehaviour
     public void OpenActualCourse()
     {
         actualCourse.OpenCourse();
+    }
+    public void CloseActualCourse()
+    {
+        actualCourse.dataCourse.closed = true;
     }
 }

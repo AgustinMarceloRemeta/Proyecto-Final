@@ -1,16 +1,24 @@
 using UnityEngine;
 
-public class CheckCourseClose : MonoBehaviour
+public class CheckCourseClose : OnEnableSp
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public GameObject[] closeObjects;
+
+    private void Awake()
     {
-        
+        eventOnEnable.AddListener(CheckCourse);
+    }
+    public void CheckCourse()
+    {
+        foreach (GameObject go in closeObjects)
+        {
+            go.SetActive(!CoursesManager.instance.actualCourse.dataCourse.closed);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        eventOnEnable.RemoveAllListeners();
+
     }
 }
