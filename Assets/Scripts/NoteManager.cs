@@ -18,7 +18,7 @@ public class NoteManager : MonoBehaviour
         Note note = new Note();
         if (string.IsNullOrWhiteSpace(referenceText.text)) //verifica si la referencia es valida
         {
-            Alert.instance.StartAlert(AlertTexts.textInvalid, alertText);
+            Alert.instance.StartAlert(AlertTexts.textInvalid);
             return;
         }
         string cleanValueText = noteValueText.text.Replace("\u200B", "");
@@ -28,7 +28,7 @@ public class NoteManager : MonoBehaviour
         }
         catch (FormatException)
         {
-            Alert.instance.StartAlert(AlertTexts.valueInvalid, alertText);
+            Alert.instance.StartAlert(AlertTexts.valueInvalid);
             return;
         }
         note.referencia = referenceText.text;

@@ -45,18 +45,20 @@ public class CoursesManager : MonoBehaviour
             newNoteMax = int.Parse(noteText.text.Trim(), CultureInfo.InvariantCulture);
                 if(newNoteMax <= 0)
                 {
-                    print("numero invalido");
+                    Alert.instance.StartAlert(AlertTexts.valueInvalid);
+
                     return;
                 }
         }
         catch (FormatException)
         {
-            print("Ingrese un numero");
+                Alert.instance.StartAlert(AlertTexts.addNumber);
             return;
         }
         else
         {
-            print("Ingrese un nombre correcto");
+            Alert.instance.StartAlert(AlertTexts.textInvalid);
+
             return;
         }
        DataCourse dataCourse = new DataCourse();
@@ -114,18 +116,18 @@ public class CoursesManager : MonoBehaviour
                 newNoteMax = int.Parse(modifyNoteText.text.Trim(), CultureInfo.InvariantCulture);
                 if (newNoteMax <= 0)
                 {
-                    print("numero invalido");
+                    Alert.instance.StartAlert(AlertTexts.valueInvalid);
                     return;
                 }
             }
             catch (FormatException)
             {
-                print("Ingrese un numero");
+                Alert.instance.StartAlert(AlertTexts.addNumber);
                 return;
             }
         else
         {
-            print("Ingrese un nombre correcto");
+            Alert.instance.StartAlert(AlertTexts.textInvalid);
             return;
         }
         coursesNames.Remove(actualCourse.dataCourse.courseName);

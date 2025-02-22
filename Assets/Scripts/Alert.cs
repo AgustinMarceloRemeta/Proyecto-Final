@@ -5,16 +5,18 @@ using TMPro;
 public class Alert : MonoBehaviour
 {
   public static Alert instance;
-
+    public TextMeshProUGUI textAlert;
+    public bool alertActive = false;
     private void Awake()
     {
         instance = this;
     }
 
-    public void StartAlert(string message, TextMeshProUGUI text)
+    public void StartAlert(string message)
     {
-        text.text = message;
-        StartCoroutine(AlertCoroutine(message, text, 6,text.color));
+        alertActive = true;
+        textAlert.text = message;
+        StartCoroutine(AlertCoroutine(message, textAlert, 6, textAlert.color));
     }
 
     public IEnumerator AlertCoroutine(string message, TextMeshProUGUI text, int countBlinks,Color colorText) 
@@ -30,6 +32,7 @@ public class Alert : MonoBehaviour
         else
         {
             text.color = colorText;
+            alertActive = false;
             yield return null;
         }
     }
