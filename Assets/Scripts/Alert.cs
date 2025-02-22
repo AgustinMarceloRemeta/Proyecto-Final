@@ -24,14 +24,15 @@ public class Alert : MonoBehaviour
         if (countBlinks >0) 
         {
             text.color = Color.red + new Color(0, 0, 0, 1);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
             text.color = new Color(0, 0, 0, 0);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
             StartCoroutine(AlertCoroutine(message,text,countBlinks-1, colorText));
         }   
         else
         {
             text.color = colorText;
+            text.text = "";
             alertActive = false;
             yield return null;
         }

@@ -18,6 +18,8 @@ public class PanelController : MonoBehaviour
     // Método para activar un nuevo panel
     public void ShowPanel(GameObject panel)
     {
+        if (Alert.instance.alertActive) return;
+
         // Si hay un panel activo, lo desactivamos y lo guardamos en el historial
         if (currentPanel != null)
         {
@@ -55,6 +57,7 @@ public class PanelController : MonoBehaviour
     }
     public void ShowPanelWithoutSaving(GameObject panel)
     {
+        if (Alert.instance.alertActive) return;
         // Si hay un panel activo, solo lo desactivamos
         if (currentPanel != null)
         {

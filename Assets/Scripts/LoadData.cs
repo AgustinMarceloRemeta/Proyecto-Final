@@ -18,13 +18,15 @@ public class LoadData : MonoBehaviour
 
     private void Start()
     {
-        DataManager.instance.OrderStudents(data.students);
+        if(data.students.Count>0)DataManager.instance.OrderStudents(data.students);
         DataManager.instance.SetCourses();
         print(Application.persistentDataPath + "/StudentData.json");
     }
 
     public JsonData ReturnData ()
     {
+        JsonData data = new JsonData();
+        data.students = new List<StudentData>();
         string path = Application.persistentDataPath + "/StudentData.json";
         if (File.Exists(path))
         {
@@ -32,7 +34,7 @@ public class LoadData : MonoBehaviour
             JsonData studentData = JsonUtility.FromJson<JsonData>(json);
             return studentData;
         }
-        else return null;
+        else return data;
     }
 
     private void OnDisable()

@@ -12,7 +12,8 @@ public class CheckCourseClose : OnEnableSp
     {
         foreach (GameObject go in closeObjects)
         {
-            go.SetActive(!CoursesManager.instance.actualCourse.dataCourse.closed);
+            if(CoursesManager.instance.actualCourse!= null) go.SetActive(!CoursesManager.instance.actualCourse.dataCourse.closed);
+            else go.SetActive(true);
         }
     }
 
