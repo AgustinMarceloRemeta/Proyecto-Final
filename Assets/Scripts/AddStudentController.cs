@@ -49,7 +49,7 @@ public class AddStudentController : MonoBehaviour
     {
         NoteManager.instance.selectedStudent = CreateNewStudent();
         NoteManager.instance.UpdateText();
-        PanelController.instance.ShowPanel(NoteManager.instance.notePanel);
+        PanelController.instance.ShowPanelWithoutSaving(NoteManager.instance.notePanel);
     }
     public void ResetScript()
     {
