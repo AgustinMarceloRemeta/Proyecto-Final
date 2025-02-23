@@ -137,6 +137,7 @@ public class CoursesManager : MonoBehaviour
         foreach (var item in actualCourse.students)
         {
             item.course.courseName = modifyNameText.text;
+            item.initialCourse = modifyDateDropdownController.GetSelectedDate();
         }
         coursesNames.Add(modifyNameText.text);
         actualCourse.GetComponentInChildren<TextMeshProUGUI>().text = modifyNameText.text;
@@ -148,5 +149,10 @@ public class CoursesManager : MonoBehaviour
     public void CloseActualCourse()
     {
         actualCourse.dataCourse.closed = true;
+    }
+
+    public void DeleteActualCourse()
+    {
+        actualCourse= null; 
     }
 }

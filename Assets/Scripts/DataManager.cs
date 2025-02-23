@@ -44,7 +44,7 @@ public class DataManager : MonoBehaviour
         foreach (var course in CoursesManager.instance.coursesList) course.GetComponent<CourseController>().students.Clear();
         foreach (StudentData item in LoadData.instance.data.students)
         {
-            if (!CoursesManager.instance.coursesNames.Contains(item.course.courseName)) CoursesManager.instance.NewCourse(item.course, 10,"2025-03-01");
+            if (!CoursesManager.instance.coursesNames.Contains(item.course.courseName)) CoursesManager.instance.NewCourse(item.course, 10,item.initialCourse);
             AddStudentController.instance.AddNewStudent(item);
         }
     }

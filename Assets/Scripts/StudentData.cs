@@ -13,6 +13,7 @@ public class StudentData
     public float noteAverage;
     public float notePercentage;
     public DataCourse course;
+    public string initialCourse;
     public List<DiaInfoEntry> historialDiasList = new List<DiaInfoEntry>();
 
 }
