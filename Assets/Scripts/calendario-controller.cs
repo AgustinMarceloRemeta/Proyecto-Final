@@ -70,4 +70,11 @@ public class CalendarioController : MonoBehaviour
         student.historialDiasList = DictionaryConverter.ConvertDictionaryToDiaInfoEntries(GetHistorialDias());
         ClearHistorial();
     }
+
+    public void AddNotes()
+    {
+        NoteManager.instance.selectedStudent = student;
+        NoteManager.instance.UpdateText();
+        PanelController.instance.ShowPanelWithoutSaving(NoteManager.instance.notePanel);
+    }
 }

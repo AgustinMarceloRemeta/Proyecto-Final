@@ -44,4 +44,12 @@ public class NoteManager : MonoBehaviour
             notesText.text += item.referencia + " " + item.value + " / ";
         }
     }
+
+    public void AddAttendances()
+    {
+        PanelController.instance.ShowPanel(CalendarioController.Instance.panel);
+        CalendarioController.Instance.SetInitialDate(CoursesManager.instance.GetCourse(selectedStudent.course.courseName).initialDate);
+        CalendarioController.Instance.student = selectedStudent;
+        CalendarioController.Instance.UpdateHistorialDias(DictionaryConverter.ConvertDiaInfoEntriesToDictionary(selectedStudent.historialDiasList));
+    }
 }

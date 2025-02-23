@@ -55,4 +55,13 @@ public class AddStudentController : MonoBehaviour
     {
          notes.Clear();
     }
+
+    public void AddAttendances()
+    {
+        StudentData studentData = CreateNewStudent();
+        PanelController.instance.ShowPanel(CalendarioController.Instance.panel);
+        CalendarioController.Instance.SetInitialDate(CoursesManager.instance.GetCourse(studentData.course.courseName).initialDate);
+        CalendarioController.Instance.student = studentData;
+        CalendarioController.Instance.UpdateHistorialDias(DictionaryConverter.ConvertDiaInfoEntriesToDictionary(studentData.historialDiasList));
+    }
 }
