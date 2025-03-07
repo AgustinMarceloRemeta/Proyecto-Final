@@ -43,8 +43,12 @@ public class LoadData : MonoBehaviour
 
                 // Una vez que los datos están cargados, configura el resto
                 if (data.students.Count > 0)
+                {
                     DataManager.instance.OrderStudents(data.students);
+                    DataManager.instance.CheckAttendances(data.students);
 
+
+                }
                 DataManager.instance.SetCourses();
             }
             else

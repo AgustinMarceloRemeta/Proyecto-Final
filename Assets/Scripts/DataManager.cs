@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
@@ -49,4 +51,19 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    public void CheckAttendances(List<StudentData> studentData)
+    {
+        foreach (var item in studentData)
+        {
+            if (item.initialCourse == string.Empty) continue;
+            DateTime initial = DateTime.ParseExact(item.initialCourse, "yyyy-MM-dd", null);
+            List<DiaInfoEntry> newListDay = new List<DiaInfoEntry>(item.historialDiasList);
+            foreach (var day in newListDay)
+            {
+                DateTime actual = new DateTime(day.value.Año, day.value.Mes, day.value.Dia);
+                if (actual < initial) item.historialDiasList.Remove(day);
+            }
+        }
+    }
+    public void ChekAttendancesButton() => CheckAttendances(LoadData.instance.data.students);
 }
