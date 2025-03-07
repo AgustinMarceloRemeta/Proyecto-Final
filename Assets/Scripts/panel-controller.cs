@@ -139,4 +139,5 @@ public class PanelController : MonoBehaviour
     {
         return panelHistory.Count;
     }
+
 }

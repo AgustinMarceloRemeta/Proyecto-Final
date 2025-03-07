@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "64152049259",
+    "firebase_url": "https://proyecto-final-tesis-default-rtdb.firebaseio.com",
+    "project_id": "proyecto-final-tesis",
+    "storage_bucket": "proyecto-final-tesis.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64152049259:android:c8675b831b47ba493d032e",
+        "android_client_info": {
+          "package_name": "com.Remarkade.AulaControl"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3GAqMDjAvYUd8vRdxA77UBj6jzXnd1-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
