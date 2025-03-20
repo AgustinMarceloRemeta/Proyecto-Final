@@ -122,12 +122,6 @@ public class LoadData : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        // Al desactivar el componente, guarda los datos del usuario actual
-        if (currentUser != null)
-            SaveData.instance.SaveStudentData(data);
-    }
 
     public void Save()
     {
