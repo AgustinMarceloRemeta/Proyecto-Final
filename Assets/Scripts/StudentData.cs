@@ -75,4 +75,5 @@ public class DataCourse
 {
     public string courseName;
     public bool closed = false;
+    public float noteMax;
 }

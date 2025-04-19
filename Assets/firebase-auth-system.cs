@@ -317,9 +317,13 @@ public class FirebaseAuthManager : MonoBehaviour
     private string InterpretFirebaseError(FirebaseException e)
     {
         int errorCode = e.ErrorCode;
+        Debug.Log(errorCode);
         switch (errorCode)
         {
             case 17020: // "ERROR_USER_NOT_FOUND"
+            case 11:
+                return "Formato de email inválido";
+
             case 17009: // "ERROR_WRONG_PASSWORD"
                 return "Email o contraseña incorrectos";
             case 17008: // "ERROR_INVALID_EMAIL"
@@ -334,6 +338,9 @@ public class FirebaseAuthManager : MonoBehaviour
                 return "Esta credencial ya está asociada a una cuenta diferente";
             case 17023: // "ERROR_OPERATION_NOT_ALLOWED"
                 return "Operación no permitida";
+            case 17999: // "ERROR_INVALID_EMAIL_VERIFIED"
+                return "El email proporcionado es inválido";
+
             default:
                 return $"Error de autenticación: {e.Message}";
         }

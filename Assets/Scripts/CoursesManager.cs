@@ -63,13 +63,14 @@ public class CoursesManager : MonoBehaviour
         }
        DataCourse dataCourse = new DataCourse();
         dataCourse.courseName = nameText.text;
-        NewCourse(dataCourse, newNoteMax,dateDropdownController.GetSelectedDate());
+        dataCourse.noteMax = newNoteMax;
+        NewCourse(dataCourse,dateDropdownController.GetSelectedDate());
         coursesPanel.SetActive(true);
         settingsPanel.SetActive(false);
 
     }
 
-    public void NewCourse(DataCourse course, float noteMax, string newDate)
+    public void NewCourse(DataCourse course, string newDate)
     {
         GameObject newCourse = GameObject.Instantiate(prefabCourse);
         newCourse.transform.SetParent(parent.transform);
@@ -80,7 +81,7 @@ public class CoursesManager : MonoBehaviour
         CourseController courseController = newCourse.GetComponent<CourseController>();
         courseController.dataCourse = course;
         courseController.nameText.text = course.courseName;
-        courseController.noteMax = noteMax;
+        courseController.noteMax = course.noteMax;
         courseController.initialDate = newDate;
         courseControllers.Add(courseController);
     }
@@ -137,6 +138,7 @@ public class CoursesManager : MonoBehaviour
         foreach (var item in actualCourse.students)
         {
             item.course.courseName = modifyNameText.text;
+            item.course.noteMax = newNoteMax;
             item.initialCourse = modifyDateDropdownController.GetSelectedDate();
         }
         coursesNames.Add(modifyNameText.text);

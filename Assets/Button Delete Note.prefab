@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Notas
+  m_text: Borrar notas
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -148,9 +148,9 @@ GameObject:
   - component: {fileID: 7773380713014930780}
   - component: {fileID: 5198718123686676634}
   - component: {fileID: 464426254519107304}
-  - component: {fileID: 7425948351407306107}
+  - component: {fileID: 2974519996442840885}
   m_Layer: 5
-  m_Name: Button Note
+  m_Name: Button Delete Note
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.37532085, g: 0.6886792, b: 0.36707902, a: 1}
+  m_Color: {r: 0.8207547, g: 0.16890557, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -258,9 +258,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7425948351407306107}
-        m_TargetAssemblyTypeName: ButtonNote, Assembly-CSharp
-        m_MethodName: PlayButton
+      - m_Target: {fileID: 2974519996442840885}
+        m_TargetAssemblyTypeName: DeleteNoteButton, Assembly-CSharp
+        m_MethodName: DeleteNote
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -270,7 +270,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7425948351407306107
+--- !u!114 &2974519996442840885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,20 +279,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5837450818379281526}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bbda5fa52ac9b14790e09116fc428e6, type: 3}
+  m_Script: {fileID: 11500000, guid: a6f188ef8bc5a2947856de3abc29c2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  student:
-    name: 
-    lastName: 
-    attendancePercentage: 0
-    absence: 0
-    attendances: 0
-    notes: []
-    noteAverage: 0
-    notePercentage: 0
-    course:
-      courseName: 
-      closed: 0
-    initialCourse: 
-    historialDiasList: []
+  note:
+    referencia: 
+    value: 0

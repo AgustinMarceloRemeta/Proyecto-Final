@@ -9,6 +9,7 @@ public class NoteManager : MonoBehaviour
     public TextMeshProUGUI referenceText, noteValueText, notesText, alertText;
     public static NoteManager instance;
     public GameObject notePanel;
+    public TextMeshProUGUI nameStudent, nameStudent2, nameStudent3;
     private void Awake()
     {
         instance = this;
@@ -31,18 +32,33 @@ public class NoteManager : MonoBehaviour
             Alert.instance.StartAlert(AlertTexts.valueInvalid);
             return;
         }
+
+        if(note.value < 0)
+        {
+            Alert.instance.StartAlert(AlertTexts.valueInvalid);
+            return;
+        }
+        else if(note.value > NoteManager.instance.selectedStudent.course.noteMax)
+        {
+            Alert.instance.StartAlert(AlertTexts.valueInvalid);
+            return;
+        }
         note.referencia = referenceText.text;
 
         selectedStudent.notes.Add(note);
-        UpdateText();
+        Alert.instance.StartAlert(AlertTexts.correctNote);
     }
     public void UpdateText()
     {
+        nameStudent.text = selectedStudent.lastName + " " + selectedStudent.name; 
+        nameStudent2.text = selectedStudent.lastName + " " + selectedStudent.name; 
+        nameStudent3.text = selectedStudent.lastName + " " + selectedStudent.name; 
+        /*
         notesText.text = "Notas: ";
         foreach (var item in selectedStudent.notes)
         {
             notesText.text += item.referencia + " " + item.value + " / ";
-        }
+        }*/
     }
 
     public void AddAttendances()
