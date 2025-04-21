@@ -123,8 +123,17 @@ public class LoadData : MonoBehaviour
     }
 
 
-    public void Save()
+    public async void Save()
     {
-        SaveData.instance.SaveStudentData(data);
+        bool hasConnection = await FirebaseAuthManager.instance.CheckInternetConnection();
+        if (hasConnection) SaveData.instance.SaveStudentData(data);
+        else FirebaseAuthManager.instance.onRetryButton += ()=> SaveData.instance.SaveStudentData(data);
+    }
+
+    public async Task SaveTask()
+    {
+        bool hasConnection = await FirebaseAuthManager.instance.CheckInternetConnection();
+        if (hasConnection) await SaveData.instance.SaveStudentData(data);
+        else FirebaseAuthManager.instance.onRetryButton += () => SaveData.instance.SaveStudentData(data);
     }
 }

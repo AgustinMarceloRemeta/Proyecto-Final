@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
-using Unity.VisualScripting;
 using System.Collections.Generic;
+using System;
 
 public class FirebaseAuthManager : MonoBehaviour
 {
@@ -22,6 +22,9 @@ public class FirebaseAuthManager : MonoBehaviour
     public bool IsLoggedIn { get { return currentUser != null; } }
 
     // Referencias a la UI (asignar en el Inspector)
+    [Header("Pantalla Sin Conexión")]
+    public GameObject noInternetPanel;
+
     [Header("Pantallas")]
     public GameObject loginPanel;
     public GameObject registerPanel;
@@ -42,6 +45,7 @@ public class FirebaseAuthManager : MonoBehaviour
     public Button registerButton;
     public TextMeshProUGUI registerErrorText;
     public Button backToLoginButton;
+    public Action onRetryButton;
 
     private void Awake()
     {
@@ -101,7 +105,66 @@ public class FirebaseAuthManager : MonoBehaviour
         registerButton.onClick.AddListener(OnRegisterButtonClicked);
         backToLoginButton.onClick.AddListener(ShowLoginPanel);
     }
+    public async Task<bool> CheckInternetConnection()
+    {
+        // Unity no tiene un método integrado perfecto para verificar internet
+        // Una forma común es intentar hacer una petición a un servidor conocido
 
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            Debug.Log("Sin conexión a Internet detectada");
+            ShowNoInternetPanel();
+            return false;
+        }
+
+        // Verificación adicional intentando conectar con Firebase
+        try
+        {
+            // Intenta una operación simple con timeout
+            var task = FirebaseApp.CheckAndFixDependenciesAsync();
+            await Task.WhenAny(task, Task.Delay(5000)); // 5 segundos de timeout
+
+            if (!task.IsCompleted || task.Result != DependencyStatus.Available)
+            {
+                Debug.Log("No se pudo conectar con Firebase");
+                ShowNoInternetPanel();
+                return false;
+            }
+
+            return true;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Error al verificar conexión: " + e.Message);
+            ShowNoInternetPanel();
+            return false;
+        }
+    }
+
+    // Añade método para mostrar la pantalla sin conexión
+    public void ShowNoInternetPanel()
+    {
+
+        noInternetPanel.SetActive(true);
+    }
+
+
+
+    // Método para reintentar la conexión
+    public async void RetryConnection()
+    {
+        noInternetPanel.SetActive(false);
+
+        bool hasConnection = await CheckInternetConnection();
+        if (hasConnection)
+        {
+            // Reinicializar Firebase y continuar
+            InitializeFirebase();
+            onRetryButton?.Invoke();
+            onRetryButton = null;
+        }
+        // Si no hay conexión, CheckInternetConnection ya mostrará la pantalla adecuada
+    }
     private void AuthStateChanged(object sender, System.EventArgs eventArgs)
     {
         // Actualizar referencia al usuario actual
@@ -193,6 +256,8 @@ public class FirebaseAuthManager : MonoBehaviour
 
     public async void OnLoginButtonClicked()
     {
+        bool hasConnection = await CheckInternetConnection();
+        if (!hasConnection) return;
         string email = loginEmailField.text;
         string password = loginPasswordField.text;
 
@@ -228,6 +293,8 @@ public class FirebaseAuthManager : MonoBehaviour
 
     public async void OnRegisterButtonClicked()
     {
+        bool hasConnection = await CheckInternetConnection();
+        if (!hasConnection) return;
         string email = registerEmailField.text;
         string password = registerPasswordField.text;
         string confirmPassword = confirmPasswordField.text;
@@ -284,6 +351,18 @@ public class FirebaseAuthManager : MonoBehaviour
     // Método para inicializar la estructura de datos del usuario
     private async Task InitializeUserData(string userId)
     {
+        // Mostrar pantalla de carga
+        ShowLoadingPanel(true);
+
+        // Verificar conexión a internet primero
+        bool hasConnection = await CheckInternetConnection();
+        if (!hasConnection)
+        {
+            return; // Ya se mostró la pantalla sin conexión
+        }
+
+        // El resto del código de inicialización...
+        var dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync();
         try
         {
             // Crear estructura inicial de datos

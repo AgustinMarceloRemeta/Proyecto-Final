@@ -12,11 +12,11 @@ public class Logout : MonoBehaviour
         auth = FirebaseAuth.DefaultInstance;
     }
 
-    public void CerrarSesion()
+    public async void CerrarSesion()
     {
         if (auth != null && auth.CurrentUser != null)
         {
-            // Cerrar sesión
+            await LoadData.instance.SaveTask();
             auth.SignOut();
             Debug.Log("Se ha cerrado la sesión correctamente");
 
