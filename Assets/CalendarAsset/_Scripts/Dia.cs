@@ -103,7 +103,7 @@ public class Dia : MonoBehaviour
             EstadoAsistencia.Asistio => Color.green,
             EstadoAsistencia.NoAsistio => Color.red,
             EstadoAsistencia.SinClase => Color.grey,
-            EstadoAsistencia.noSelected => Color.white,
+            EstadoAsistencia.noSelected => Color.black,
             _ => Color.white
         };
     }
