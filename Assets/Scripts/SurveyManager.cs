@@ -23,6 +23,12 @@ public class SurveyManager : MonoBehaviour
     private string defaultUrl = "https://tusindicado.com/encuesta";
 
     private string surveyUrl;
+    SaveSurveyState saveSurveyState;
+
+    private void Awake()
+    {
+        saveSurveyState = GetComponent<SaveSurveyState>();
+    }
 
     private async void Start()
     {
@@ -80,7 +86,7 @@ public class SurveyManager : MonoBehaviour
         }
     }
 
-    private void CheckDateAndUpdateButton()
+    private async void CheckDateAndUpdateButton()
     {
         try
         {
@@ -95,15 +101,17 @@ public class SurveyManager : MonoBehaviour
 
             Debug.Log($"Fechas de encuesta cargadas: Min={minDateStr}, Max={maxDateStr}");
 
+            bool saveData = await saveSurveyState.ReturnData();
+
             // Verificar si la fecha actual está dentro del rango
             if (DateTime.Compare(DateTime.Today, minLimitDate) >= 0 &&
-                DateTime.Compare(DateTime.Today, maxLimitDate) <= 0)
+                DateTime.Compare(DateTime.Today, maxLimitDate) <= 0 && !saveData) 
             {
-                surveyButton.gameObject.SetActive(true);
+                surveyButton.transform.parent.gameObject.SetActive(true);
             }
             else
             {
-                surveyButton.gameObject.SetActive(false);
+                surveyButton.transform.parent.gameObject.SetActive(false);
             }
         }
         catch (Exception ex)

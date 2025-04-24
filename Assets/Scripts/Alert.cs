@@ -7,6 +7,8 @@ public class Alert : MonoBehaviour
   public static Alert instance;
     public TextMeshProUGUI textAlert;
     public bool alertActive = false;
+    [SerializeField] int countRepeatAlert = 3;
+    [SerializeField] float velocityAlert = 0.5f;
     private void Awake()
     {
         instance = this;
@@ -14,25 +16,26 @@ public class Alert : MonoBehaviour
 
     public void StartAlert(string message)
     {
+        StopAllCoroutines();
         alertActive = true;
         textAlert.text = message;
-        StartCoroutine(AlertCoroutine(message, textAlert, 6, textAlert.color));
+        StartCoroutine(AlertCoroutine(message, textAlert, countRepeatAlert, textAlert.color));
     }
 
     public IEnumerator AlertCoroutine(string message, TextMeshProUGUI text, int countBlinks,Color colorText) 
     {
         if (countBlinks >0) 
         {
-            text.color = Color.red + new Color(0, 0, 0, 1);
-            yield return new WaitForSeconds(0.1f);
-            text.color = new Color(0, 0, 0, 0);
-            yield return new WaitForSeconds(0.1f);
+            text.transform.parent.gameObject.SetActive(true);
+            yield return new WaitForSeconds(velocityAlert);
+            text.transform.parent.gameObject.SetActive(false);
+            yield return new WaitForSeconds(velocityAlert);
             StartCoroutine(AlertCoroutine(message,text,countBlinks-1, colorText));
         }   
         else
         {
-            text.color = colorText;
-            text.text = "";
+            text.transform.parent.gameObject.SetActive(false);
+
             alertActive = false;
             yield return null;
         }

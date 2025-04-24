@@ -247,7 +247,7 @@ public class FirebaseAuthManager : MonoBehaviour
 
     private void SetErrorMessage(TextMeshProUGUI errorText, string message)
     {
-        errorText.text = message;
+        Alert.instance.StartAlert(message);
     }
 
     #endregion
