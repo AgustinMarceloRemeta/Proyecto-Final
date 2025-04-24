@@ -64,6 +64,7 @@ public class CoursesManager : MonoBehaviour
        DataCourse dataCourse = new DataCourse();
         dataCourse.courseName = nameText.text;
         dataCourse.noteMax = newNoteMax;
+        dataCourse.initialCourse = dateDropdownController.GetSelectedDate();
         NewCourse(dataCourse,dateDropdownController.GetSelectedDate());
         coursesPanel.SetActive(true);
         settingsPanel.SetActive(false);
