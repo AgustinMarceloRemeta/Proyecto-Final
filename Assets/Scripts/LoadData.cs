@@ -20,10 +20,10 @@ public class LoadData : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        InitializeFirebase();
     }
-    private void Start()
+    private void OnEnable()
     {
+        InitializeFirebase();
     }
     private async void InitializeFirebase()
     {
@@ -110,9 +110,10 @@ public class LoadData : MonoBehaviour
 
             currentUser = auth.CurrentUser;
             data = await ReturnData();
-
+            courses = await SaveCourse.instance.ReturnData();
             if (data.students.Count > 0)
                 DataManager.instance.OrderStudents(data.students);
+            DataManager.instance.SetCourses();
 
             return true;
         }
