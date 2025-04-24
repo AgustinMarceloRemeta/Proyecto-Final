@@ -6205,6 +6205,7 @@ GameObject:
   - component: {fileID: 339846273}
   - component: {fileID: 339846274}
   - component: {fileID: 339846275}
+  - component: {fileID: 339846276}
   m_Layer: 0
   m_Name: DataController
   m_TagString: Untagged
@@ -6225,21 +6226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    students:
-    - name: 
-      lastName: 
-      attendancePercentage: 0
-      absence: 0
-      attendances: 0
-      notes: []
-      noteAverage: 0
-      notePercentage: 0
-      course:
-        courseName: 
-        closed: 0
-        noteMax: 0
-      initialCourse: 
-      historialDiasList: []
+    students: []
+  courses: []
 --- !u!114 &339846268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6376,7 +6364,7 @@ MonoBehaviour:
       courseName: 
       closed: 0
       noteMax: 0
-    initialCourse: 
+      initialCourse: 
     historialDiasList: []
   referenceText: {fileID: 1568623849}
   noteValueText: {fileID: 290691009}
@@ -6412,9 +6400,21 @@ MonoBehaviour:
       courseName: 
       closed: 0
       noteMax: 0
-    initialCourse: 
+      initialCourse: 
     historialDiasList: []
   panel: {fileID: 948557174}
+--- !u!114 &339846276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339846266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444f663772970c8488773f4c9394ae6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &353711637
 GameObject:
   m_ObjectHideFlags: 0
