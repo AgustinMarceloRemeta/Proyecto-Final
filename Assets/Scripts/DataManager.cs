@@ -44,9 +44,14 @@ public class DataManager : MonoBehaviour
     public void SetCourses()
     {
         foreach (var course in CoursesManager.instance.coursesList) course.GetComponent<CourseController>().students.Clear();
+       if(LoadData.instance.courses == null) LoadData.instance.courses = new List<DataCourse> ();
+        
+        foreach (DataCourse item in LoadData.instance.courses)
+        {
+            if (!CoursesManager.instance.coursesNames.Contains(item.courseName)) CoursesManager.instance.NewCourse(item,item.initialCourse);
+        }
         foreach (StudentData item in LoadData.instance.data.students)
         {
-            if (!CoursesManager.instance.coursesNames.Contains(item.course.courseName)) CoursesManager.instance.NewCourse(item.course,item.initialCourse);
             AddStudentController.instance.AddNewStudent(item);
         }
     }
@@ -55,8 +60,8 @@ public class DataManager : MonoBehaviour
     {
         foreach (var item in studentData)
         {
-            if (item.initialCourse == string.Empty) continue;
-            DateTime initial = DateTime.ParseExact(item.initialCourse, "yyyy-MM-dd", null);
+            if (item.course.initialCourse == string.Empty) continue;
+            DateTime initial = DateTime.ParseExact(item.course.initialCourse, "yyyy-MM-dd", null);
             List<DiaInfoEntry> newListDay = new List<DiaInfoEntry>(item.historialDiasList);
             foreach (var day in newListDay)
             {

@@ -13,7 +13,6 @@ public class StudentData
     public float noteAverage;
     public float notePercentage;
     public DataCourse course;
-    public string initialCourse;
     public List<DiaInfoEntry> historialDiasList = new List<DiaInfoEntry>();
 
 }
@@ -76,4 +75,11 @@ public class DataCourse
     public string courseName;
     public bool closed = false;
     public float noteMax;
+    public string initialCourse;
+}
+
+[Serializable]
+public class CourseList
+{
+    public List<DataCourse> courses;
 }

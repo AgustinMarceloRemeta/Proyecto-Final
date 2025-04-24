@@ -67,7 +67,21 @@ public class CoursesManager : MonoBehaviour
         NewCourse(dataCourse,dateDropdownController.GetSelectedDate());
         coursesPanel.SetActive(true);
         settingsPanel.SetActive(false);
-
+        if (LoadData.instance.courses != null)
+        {
+            Debug.Log("El curso es: no nulo");
+            LoadData.instance.courses.Add(dataCourse);
+        }
+        else
+        {
+            Debug.Log("El curso es: NULO");
+            // Inicializa la lista si es nula
+            LoadData.instance.courses = new List<DataCourse>
+            {
+                dataCourse
+            };
+        }
+        SaveCourse.instance.SaveCourseData(LoadData.instance.courses);
     }
 
     public void NewCourse(DataCourse course, string newDate)
@@ -139,7 +153,7 @@ public class CoursesManager : MonoBehaviour
         {
             item.course.courseName = modifyNameText.text;
             item.course.noteMax = newNoteMax;
-            item.initialCourse = modifyDateDropdownController.GetSelectedDate();
+            item.course.initialCourse = modifyDateDropdownController.GetSelectedDate();
         }
         coursesNames.Add(modifyNameText.text);
         actualCourse.GetComponentInChildren<TextMeshProUGUI>().text = modifyNameText.text;

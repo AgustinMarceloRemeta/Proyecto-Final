@@ -22,7 +22,6 @@ public class AddStudentController : MonoBehaviour
         studentData.lastName = lastNameText.text;
         studentData.course = CoursesManager.instance.actualCourse.dataCourse;
         studentData.notes = notes;
-        studentData.initialCourse = CoursesManager.instance.actualCourse.initialDate;
         AddNewStudent(studentData);
         LoadData.instance.data.students.Add(studentData);
         ResetScript();
@@ -34,7 +33,7 @@ public class AddStudentController : MonoBehaviour
         foreach (var item in CoursesManager.instance.coursesList)
         {
             CourseController courseController = item.GetComponent<CourseController>();
-            if (courseController.dataCourse == student.course)
+            if (courseController.dataCourse.courseName == student.course.courseName)
             {
                 courseController.students.Add(student);
                 break;

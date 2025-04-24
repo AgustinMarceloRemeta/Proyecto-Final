@@ -10,6 +10,7 @@ using TMPro;
 public class LoadData : MonoBehaviour
 {
     public JsonData data;
+    public List<DataCourse> courses = new List<DataCourse>();
     public static LoadData instance;
 
     private FirebaseAuth auth;
@@ -21,7 +22,9 @@ public class LoadData : MonoBehaviour
         instance = this;
         InitializeFirebase();
     }
-
+    private void Start()
+    {
+    }
     private async void InitializeFirebase()
     {
         // Inicializa Firebase
@@ -40,14 +43,12 @@ public class LoadData : MonoBehaviour
 
                 // Carga los datos específicos del usuario actual
                 data = await ReturnData();
-
+                courses = await SaveCourse.instance.ReturnData();
                 // Una vez que los datos están cargados, configura el resto
                 if (data.students.Count > 0)
                 {
                     DataManager.instance.OrderStudents(data.students);
                     DataManager.instance.CheckAttendances(data.students);
-
-
                 }
                 DataManager.instance.SetCourses();
             }
