@@ -5,7 +5,7 @@ using TMPro;
 
 public class ConsoleToUI : MonoBehaviour
 {
-    public TextMeshProUGUI logText; // Arrastrá un Text UI acá desde el Canvas
+    public TextMeshProUGUI logText; 
     private string currentLog = "";
     private Queue<string> logQueue = new Queue<string>();
     public int maxLogs = 30;
