@@ -10,6 +10,7 @@ public class AddStudentController : MonoBehaviour
     public List<Note> notes = new List<Note>();
     public static AddStudentController instance;
     [SerializeField] TextMeshProUGUI nameText, lastNameText;
+    [SerializeField] GameObject curso;
 
     private void Awake()
     {
@@ -18,6 +19,11 @@ public class AddStudentController : MonoBehaviour
     public StudentData CreateNewStudent()
     {
         StudentData studentData = new StudentData();
+        if(nameText.text == string.Empty || lastNameText.text == string.Empty)
+        {
+            Alert.instance.StartAlert(AlertTexts.emptyText);
+            return null;
+        }    
         studentData.name = nameText.text;
         studentData.lastName = lastNameText.text;
         studentData.course = CoursesManager.instance.actualCourse.dataCourse;
@@ -43,11 +49,15 @@ public class AddStudentController : MonoBehaviour
 
     public void CreateStudentButton()
     {
-        CreateNewStudent();
+        StudentData studentData =  CreateNewStudent();
+        if(studentData!= null)
+        PanelController.instance.ShowPanelWithoutSaving(curso);
     }
     public void AddNotes()
     {
-        NoteManager.instance.selectedStudent = CreateNewStudent();
+        StudentData studentData = CreateNewStudent();
+        if (studentData == null) return;
+        NoteManager.instance.selectedStudent = studentData;
         NoteManager.instance.UpdateText();
         PanelController.instance.ShowPanelWithoutSaving(NoteManager.instance.notePanel);
     }
@@ -59,6 +69,7 @@ public class AddStudentController : MonoBehaviour
     public void AddAttendances()
     {
         StudentData studentData = CreateNewStudent();
+        if (studentData == null) return;
         PanelController.instance.ShowPanel(CalendarioController.Instance.panel);
         CalendarioController.Instance.SetInitialDate(CoursesManager.instance.GetCourse(studentData.course.courseName).initialDate);
         CalendarioController.Instance.student = studentData;

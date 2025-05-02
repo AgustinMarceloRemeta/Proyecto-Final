@@ -44,6 +44,11 @@ public class NoteManager : MonoBehaviour
             return;
         }
         note.referencia = referenceText.text;
+        if(note.referencia == string.Empty)
+        {
+            Alert.instance.StartAlert(AlertTexts.emptyText);
+            return;
+        }
 
         selectedStudent.notes.Add(note);
         Alert.instance.StartAlert(AlertTexts.correctNote);

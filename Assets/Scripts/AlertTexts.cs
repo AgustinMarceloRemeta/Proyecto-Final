@@ -6,5 +6,5 @@ public static class AlertTexts
     public readonly static string veryLargeNumber = "La nota es mayor a la nota maxima";
     public readonly static string emptyText = "Este texto no puede estar vacio"; 
     public readonly static string addNumber = "Ingrese un numero"; 
-    public readonly static string correctNote = "Nota agregadada"; 
+    public readonly static string correctNote = "Nota agregadada";
 }
