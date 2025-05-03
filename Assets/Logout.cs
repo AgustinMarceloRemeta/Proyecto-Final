@@ -12,10 +12,14 @@ public class Logout : MonoBehaviour
         auth = FirebaseAuth.DefaultInstance;
     }
 
+    [SerializeField] GameObject loginPanel, mainPanel,loadPanel;
+
     public async void CerrarSesion()
     {
+        auth = FirebaseAuth.DefaultInstance;
         if (auth != null && auth.CurrentUser != null)
         {
+            loadPanel.SetActive(true);
             await LoadData.instance.SaveTask();
             auth.SignOut();
             Debug.Log("Se ha cerrado la sesión correctamente");
@@ -28,6 +32,8 @@ public class Logout : MonoBehaviour
 
             // Opcional: Redirigir a la escena de login
             // SceneManager.LoadScene("LoginScene");
+            mainPanel.SetActive(false);
+            loginPanel.SetActive(true);
         }
         else
         {

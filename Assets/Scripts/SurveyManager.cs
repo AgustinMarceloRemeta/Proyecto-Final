@@ -24,13 +24,15 @@ public class SurveyManager : MonoBehaviour
 
     private string surveyUrl;
     SaveSurveyState saveSurveyState;
+    public static SurveyManager instance;
 
     private void Awake()
     {
         saveSurveyState = GetComponent<SaveSurveyState>();
+        instance = this;
     }
 
-    private async void Start()
+    public async void StartSurvery()
     {
         // Desactivar el botón y mostrar cargando hasta verificar fechas
         surveyButton.gameObject.SetActive(false);

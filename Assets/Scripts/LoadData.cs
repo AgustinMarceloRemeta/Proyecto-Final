@@ -51,6 +51,7 @@ public class LoadData : MonoBehaviour
                     DataManager.instance.CheckAttendances(data.students);
                 }
                 DataManager.instance.SetCourses();
+                SurveyManager.instance.StartSurvery();
             }
             else
             {
