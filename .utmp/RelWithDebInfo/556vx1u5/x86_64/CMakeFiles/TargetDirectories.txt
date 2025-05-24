@@ -1,0 +1,5 @@
+G:/Github/Proyecto Final/.utmp/RelWithDebInfo/556vx1u5/x86_64/CMakeFiles/edit_cache.dir
+G:/Github/Proyecto Final/.utmp/RelWithDebInfo/556vx1u5/x86_64/CMakeFiles/rebuild_cache.dir
+G:/Github/Proyecto Final/.utmp/RelWithDebInfo/556vx1u5/x86_64/FramePacing/CMakeFiles/swappywrapper.dir
+G:/Github/Proyecto Final/.utmp/RelWithDebInfo/556vx1u5/x86_64/FramePacing/CMakeFiles/edit_cache.dir
+G:/Github/Proyecto Final/.utmp/RelWithDebInfo/556vx1u5/x86_64/FramePacing/CMakeFiles/rebuild_cache.dir
