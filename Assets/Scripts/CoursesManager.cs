@@ -68,6 +68,7 @@ public class CoursesManager : MonoBehaviour
         NewCourse(dataCourse,dateDropdownController.GetSelectedDate());
         coursesPanel.SetActive(true);
         settingsPanel.SetActive(false);
+        RewardController.instance.AddReward(Reward.firtsCourse);
         if (LoadData.instance.courses != null)
         {
             Debug.Log("El curso es: no nulo");
@@ -158,6 +159,7 @@ public class CoursesManager : MonoBehaviour
         }
         coursesNames.Add(modifyNameText.text);
         actualCourse.GetComponentInChildren<TextMeshProUGUI>().text = modifyNameText.text;
+        RewardController.instance.AddReward(Reward.firtsEdit);
     }
     public void OpenActualCourse()
     {

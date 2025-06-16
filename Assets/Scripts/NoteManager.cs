@@ -51,6 +51,7 @@ public class NoteManager : MonoBehaviour
         }
 
         selectedStudent.notes.Add(note);
+        RewardController.instance.AddReward(Reward.firtsNote);
         Alert.instance.StartAlert(AlertTexts.correctNote);
     }
     public void UpdateText()

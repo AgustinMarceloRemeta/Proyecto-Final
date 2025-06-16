@@ -31,6 +31,7 @@ public class AddStudentController : MonoBehaviour
         AddNewStudent(studentData);
         LoadData.instance.data.students.Add(studentData);
         ResetScript();
+        RewardController.instance.AddReward(Reward.firtsStudent);
         return studentData;
     }
 

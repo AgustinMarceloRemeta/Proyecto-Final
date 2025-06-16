@@ -80,6 +80,7 @@ public class Dia : MonoBehaviour
         {
             CambiarEstado();
         }
+        RewardController.instance.AddReward(Reward.firtsAssistance);
 
         ActualizarColor();
         calendario.GuardarEstadoDia(diaActual, mesActual, añoActual, estadoActual);

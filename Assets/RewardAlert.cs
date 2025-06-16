@@ -12,7 +12,6 @@ public class RewardAlert : MonoBehaviour
     public void StartReward(Reward reward)
     {
         StopAllCoroutines();
-        Debug.Log("Reward: " + reward.ToString());
         switch (reward)
         {
             case Reward.appOpen: StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[0]));
@@ -30,7 +29,6 @@ public class RewardAlert : MonoBehaviour
             default:
                 break;
         }
-
     }
 
     public IEnumerator RewardCoroutine(int countBlinks, Sprite image)
