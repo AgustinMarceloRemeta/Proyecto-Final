@@ -5,25 +5,27 @@ using UnityEngine.UI;
 
 public class RewardAlert : MonoBehaviour
 {
-    [SerializeField] int repeatingCouroutine, velocityReward;
+    [SerializeField] int repeatingCouroutine;
+    [SerializeField] float velocityReward;
     [SerializeField] Sprite[] rewardImages;
     [SerializeField] Image imageUi;
-    public void StartReward(string reward)
+    public void StartReward(Reward reward)
     {
         StopAllCoroutines();
+        Debug.Log("Reward: " + reward.ToString());
         switch (reward)
         {
-            case "appOpen": StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[0]));
+            case Reward.appOpen: StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[0]));
                 break; 
-            case "firtsCourse": StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[0]));
+            case Reward.firtsCourse: StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[1]));
                 break; 
-            case "firtsStudent": StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[0]));
+            case Reward.firtsStudent: StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[2]));
                 break; 
-            case "firtsNote": StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[0]));
+            case Reward.firtsNote: StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[3]));
                 break; 
-            case "firtsAssistance": StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[0]));
+            case Reward.firtsAssistance: StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[4]));
                 break; 
-            case "firtsEdit": StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[0]));
+            case Reward.firtsEdit: StartCoroutine(RewardCoroutine(repeatingCouroutine, rewardImages[5]));
                 break; 
             default:
                 break;
@@ -36,9 +38,9 @@ public class RewardAlert : MonoBehaviour
         if (countBlinks > 0)
         {
             imageUi.sprite = image;
-            gameObject.SetActive(true);
+            transform.GetChild(0).gameObject.SetActive(true);
             yield return new WaitForSeconds(velocityReward);
-            gameObject.SetActive(false);
+            transform.GetChild(0).gameObject.SetActive(false);
             yield return new WaitForSeconds(velocityReward);
             StartCoroutine(RewardCoroutine(countBlinks - 1,image));
         }
